@@ -6,13 +6,18 @@ import * as actions from '../../actions/fuelSavingsActions';
 import FuelSavingsForm from '../FuelSavingsForm';
 
 export class NewShoppingList extends React.Component {
+  propTypes = {
+    actions: PropTypes.object.isRequired,
+    fuelSavings: PropTypes.object.isRequired
+  };
+
   saveFuelSavings = () => {
     this.props.actions.saveFuelSavings(this.props.fuelSavings);
-  }
+  };
 
   calculateFuelSavings = e => {
     this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
-  }
+  };
 
   render() {
     return (
@@ -24,11 +29,6 @@ export class NewShoppingList extends React.Component {
     );
   }
 }
-
-NewShoppingList.propTypes = {
-  actions: PropTypes.object.isRequired,
-  fuelSavings: PropTypes.object.isRequired
-};
 
 function mapStateToProps(state) {
   return {
