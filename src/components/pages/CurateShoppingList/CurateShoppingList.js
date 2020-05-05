@@ -2,31 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as actions from '../../../actions/sweetBudgetActions';
 
 export class CurateShoppingList extends React.Component {
   propTypes = {
     actions: PropTypes.object.isRequired,
-    fuelSavings: PropTypes.object.isRequired
+    shopping_list: PropTypes.arrayOf(PropTypes.object).isRequired
   };
-
-  saveFuelSavings = () => {
-    this.props.actions.saveFuelSavings(this.props.fuelSavings);
-  };
-
-  calculateFuelSavings = e => {
-    this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
-  };
-
   render() {
+    console.log(this.props.shopping_list);
+
+    debugger;
     return (
-      <div>asdf</div>
+      <div className={'shopping-list'}>
+        CURATION
+        {this.props.shopping_list.items.map(item => <div>{item.name}</div>)}
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
+  debugger;
+  console.log(state);
   return {
-    fuelSavings: state.fuelSavings
+    shopping_list: state.shoppingList.shopping_list
   };
 }
 

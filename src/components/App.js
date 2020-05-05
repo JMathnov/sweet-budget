@@ -1,11 +1,10 @@
 /* eslint-disable import/no-named-as-default */
 import { NavLink, Route, Switch } from "react-router-dom";
 
-import AboutPage from "./AboutPage";
-import { OrderStatus } from "./pages/OrderStatus/OrderStatus.js";
-import { CurateShoppingList } from "./pages/CurateShoppingList/CurateShoppingList.js";
-import { ShoppingComplete } from "./pages/ShoppingComplete/ShoppingComplete.js";
-import { NewShoppingList } from "./pages/NewShoppingList/NewShoppingList.js";
+import OrderStatus from "./pages/OrderStatus/OrderStatus.js";
+import CurateShoppingList from "./pages/CurateShoppingList/CurateShoppingList.js";
+import ShoppingComplete from "./pages/ShoppingComplete/ShoppingComplete.js";
+import NewShoppingList from "./pages/NewShoppingList/NewShoppingList.js";
 import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
@@ -17,6 +16,10 @@ import { hot } from "react-hot-loader";
 // component at the top-level.
 
 class App extends React.Component {
+  propTypes = {
+    children: PropTypes.element
+  };
+
   render() {
     const activeStyle = { color: 'blue' };
     return (
@@ -45,9 +48,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.element
-};
 
 export default hot(module)(App);

@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as actions from '../../../actions/sweetBudgetActions';
 
 export class NewShoppingList extends React.Component {
-  propTypes = {
-    actions: PropTypes.object.isRequired,
-    fuelSavings: PropTypes.object.isRequired
-  };
-
   saveFuelSavings = () => {
     this.props.actions.saveFuelSavings(this.props.fuelSavings);
   };
@@ -24,9 +20,14 @@ export class NewShoppingList extends React.Component {
   }
 }
 
+NewShoppingList.propTypes = {
+  actions: PropTypes.object.isRequired,
+  shopping_list: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
   return {
-    fuelSavings: state.fuelSavings
+    shopping_list: state.shoppingList.shopping_list
   };
 }
 
