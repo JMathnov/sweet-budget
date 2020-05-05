@@ -2,8 +2,10 @@
 import { NavLink, Route, Switch } from "react-router-dom";
 
 import AboutPage from "./AboutPage";
-import NewShoppingList from "./pages/NewShoppingList";
-import FuelSavingsPage from "./pages/FuelSavingsPage";
+import { OrderStatus } from "./pages/OrderStatus/OrderStatus.js";
+import { CurateShoppingList } from "./pages/CurateShoppingList/CurateShoppingList.js";
+import { ShoppingComplete } from "./pages/ShoppingComplete/ShoppingComplete.js";
+import { NewShoppingList } from "./pages/NewShoppingList/NewShoppingList.js";
 import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
@@ -22,14 +24,21 @@ class App extends React.Component {
         <div>
           <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
           {' | '}
-          <NavLink to="/fuel-savings" activeStyle={activeStyle}>Demo App</NavLink>
+          <NavLink to="/new-shopping-list" activeStyle={activeStyle}>New List</NavLink>
           {' | '}
-          <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
+          <NavLink to="/curate-shopping-list" activeStyle={activeStyle}>Curate List</NavLink>
+          {' | '}
+          <NavLink to="/shopping-list-status" activeStyle={activeStyle}>List status</NavLink>
+          {' | '}
+          <NavLink to="/order-complete" activeStyle={activeStyle}>Order Complete</NavLink>
+
         </div>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/new-shopping-list" component={NewShoppingList} />
-          <Route path="/about" component={AboutPage} />
+          <Route path="/curate-shopping-list" component={CurateShoppingList} />
+          <Route path="/shopping-list-status" component={OrderStatus} />
+          <Route path="/order-complete" component={ShoppingComplete} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

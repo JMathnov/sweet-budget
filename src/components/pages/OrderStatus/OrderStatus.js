@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../actions/fuelSavingsActions';
-import FuelSavingsForm from '../FuelSavingsForm';
 
-export class NewShoppingList extends React.Component {
+export class OrderStatus extends React.Component {
   propTypes = {
     actions: PropTypes.object.isRequired,
     fuelSavings: PropTypes.object.isRequired
@@ -20,15 +18,11 @@ export class NewShoppingList extends React.Component {
   };
 
   render() {
-    return (
-      <FuelSavingsForm
-        onSaveClick={this.saveFuelSavings}
-        onChange={this.calculateFuelSavings}
-        fuelSavings={this.props.fuelSavings}
-      />
+    return (<div>hello</div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return {
@@ -45,4 +39,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewShoppingList);
+)(OrderStatus);
