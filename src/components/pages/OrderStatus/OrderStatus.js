@@ -70,24 +70,28 @@ export class OrderStatus extends React.Component {
     return selectedShoppingItems.map((item) => {
       const { name, category, goodUntil } = item;
       const currentPrice = dailyCurrentPrices[category][currentDay];
+      const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
       return (
         <div style={ styles.itemRow } key={ category }>
           <div style={ styles.itemValue }>{ name }</div>
           <div style={ styles.itemValue }>{ '-' }</div>
           <div style={ styles.itemValue }>{ currentPrice }</div>
-          <div style={ styles.itemValue }>{ goodUntil }</div>
+          <div style={ styles.itemValue }>{ dynamicGoodUntil }</div>
         </div>
       );
     });
   }
 
   render() {
+    const { dailyCurrentPrices } = this.props;
+    const nextDayButtonStatus = this.state.day === dailyCurrentPrices.toilet_paper.length - 1 ? 'disabled' : '';
+
     return (
       <div style={ styles.main }>
         <div style={ styles.buttons }>
           <div style={ styles.resetButton}><Button buttonType="secondary-ghost" copy="Reset" onClick={ this.onResetClick } /></div>
-          <Button buttonType="secondary-ghost" copy="Next Day" onClick={ this.onNextDayClick } />
+          <Button buttonType="secondary-ghost" copy="Next Day" onClick={ this.onNextDayClick } status={ nextDayButtonStatus } />
         </div>
         <div style={ styles.titleSection }>
           <div style={ styles.titleValue }>Product</div>
