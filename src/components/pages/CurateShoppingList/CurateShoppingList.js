@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import ShoppingItemRow from './ShoppingItemRow';
 import * as actions from '../../../actions/sweetBudgetActions';
 
 export class CurateShoppingList extends React.Component {
@@ -10,23 +11,26 @@ export class CurateShoppingList extends React.Component {
     shopping_list: PropTypes.arrayOf(PropTypes.object).isRequired
   };
   render() {
-    console.log(this.props.shopping_list);
-
-    debugger;
     return (
-      <div className={'shopping-list'}>
-        CURATION
-        {this.props.shopping_list.items.map(item => <div>{item.name}</div>)}
+      <div className={'container'}>
+        <div className={'cart-header'}>
+          green-cart
+          yellow-cart
+          red-cart
+        </div>
+
+          {this.props.shopping_list.items.map(item => <ShoppingItemRow item={item} />)}
       </div>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-  debugger;
   console.log(state);
   return {
-    shopping_list: state.shoppingList.shopping_list
+    shopping_list: state.shoppingList.shopping_list,
+    essentialItems: state.shoppingList.essentialItems,
   };
 }
 

@@ -18,7 +18,7 @@ export default {
 
   sweetBudget: {
     essentialItems: {
-      toilet_paper: [{id: 'uuid', blacklisted: null}],
+      toilet_paper: [{id: '1234141', name: 'Charmin Ultra', units: 12, price: 17.89,  blacklisted: null}],
       gloves: [],
       mask: [],
       soap: [],
