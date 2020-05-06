@@ -44,7 +44,7 @@ export class ShoppingItemRow extends React.Component {
     const priceProfile = this.getProductAveragePrice(this.props.item);
     return (
       <Grid container spacing={1}>
-          <Grid item xs={1}>
+          <Grid item xs={1} className={'category_label'}>
             {this.props.item.name}
           </Grid>
           <Grid item xs={1}>
