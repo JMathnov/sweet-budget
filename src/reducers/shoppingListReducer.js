@@ -2,7 +2,7 @@ import {SAVE_FUEL_SAVINGS, CALCULATE_FUEL_SAVINGS} from '../constants/actionType
 import {necessaryDataIsProvidedToCalculateSavings, calculateSavings} from '../utils/fuelSavings';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
-
+import * as actionTypes from '../constants/actionTypes';
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
 // create a copy of the state passed and set new values on the copy.
@@ -12,6 +12,21 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
   let newState;
 
   switch (action.type) {
+    case actionTypes.SUBMIT_LIST:
+      // save the shopping list somewhere
+
+      return {
+        ...state,
+        shopping_list: action.shopping_list
+      };
+
+    case actionTypes.PURCHASE_LIST:
+      // Save shipping information somewhere
+      return {
+        ...state,
+
+      };
+
     case SAVE_FUEL_SAVINGS:
       // For this example, just simulating a save by changing date modified.
       // In a real app using Redux, you might use redux-thunk and handle the async call in sweetBudgetActions.js
