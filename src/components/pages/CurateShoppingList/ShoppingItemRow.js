@@ -44,17 +44,17 @@ export class ShoppingItemRow extends React.Component {
     const priceProfile = this.getProductAveragePrice(this.props.item);
     return (
       <Grid container spacing={1}>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             {this.props.item.name}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             {this.props.item.quantity}
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             {this.props.itemPrice ? "$" + this.props.itemPrice : "N/a"}
           </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={9}>
           <Slider
             defaultValue={priceProfile.median}
             getAriaValueText={(item) => "$" + item}
