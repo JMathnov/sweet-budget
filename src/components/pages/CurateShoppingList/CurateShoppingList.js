@@ -18,14 +18,17 @@ export class CurateShoppingList extends React.Component {
   }
 
   changeItemLimitPrice(item, limitPrice) {
-    this.setState({[item.name] : limitPrice})
+    this.setState({[item.category] : limitPrice})
   }
 
   render() {
     return (
       <Grid container spacing={1} className={'cart-header'}>
-        <Grid item xs={6}>
-        </Grid>
+
+        <Grid item xs={2}></Grid>
+        <Grid item xs={2}>Qty</Grid>
+        <Grid item xs={2}>Limit price</Grid>
+
         <Grid item xs={2}>
           green-cart
         </Grid>
@@ -37,7 +40,7 @@ export class CurateShoppingList extends React.Component {
         </Grid>
 
         {this.props.shopping_list.items.map(item =>
-          <ShoppingItemRow item={item} essentialItems={this.props.essentialItems} changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)} itemPrice={_.get(this.state, item.name, null)}/>
+          <ShoppingItemRow item={item} essentialItems={this.props.essentialItems} changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)} itemPrice={_.get(this.state, item.category, null)}/>
           )}
       </Grid>
     );

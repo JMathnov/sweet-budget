@@ -6042,9 +6042,9 @@ export default {
 
     shopping_list: {
       items: [
-        {name: 'Toilet Paper', key: 'toilet_paper', quantity: 5, limit_price:  null},
-        {name: 'Latex Gloves', key: 'gloves', quantity: 2, limit_price:  null},
-        {name: 'Hand Soap', key: 'soap', quantity: 1, limit_price:  null}
+        {name: 'Toilet Paper', category: 'toilet_paper', quantity: 5, limit_price:  null},
+        {name: 'Latex Gloves', category: 'gloves', quantity: 2, limit_price:  null},
+        {name: 'Hand Soap', category: 'soap', quantity: 1, limit_price:  null}
       ]
     },
   }

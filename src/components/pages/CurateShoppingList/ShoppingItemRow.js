@@ -20,7 +20,7 @@ export class ShoppingItemRow extends React.Component {
   };
 
   getProductAveragePrice(item) {
-    const items = _.get(this.props.essentialItems, item.name, {});
+    const items = _.get(this.props.essentialItems, item.category, {});
 
     const allowedItems = _.filter(items, item=> !item.blacklisted, []);
 
