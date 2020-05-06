@@ -14,7 +14,8 @@ export class ShoppingItemRow extends React.Component {
   propTypes = {
     actions: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
-    essentialItems: PropTypes.object
+    essentialItems: PropTypes.object,
+    changePrice: PropTypes.func.isRequired,
   };
 
   getProductAveragePrice(item) {
@@ -40,7 +41,6 @@ export class ShoppingItemRow extends React.Component {
   render() {
 
     const priceProfile = this.getProductAveragePrice(this.props.item);
-    debugger;
     return (
       <Grid container spacing={1}>
           <Grid item xs={2}>
@@ -63,6 +63,7 @@ export class ShoppingItemRow extends React.Component {
             max={priceProfile.mostExpensive * 1.05}
             valueLabelDisplay="auto"
             marks={[{value: priceProfile.median, label: "Median"}]}
+            onChange={(event, newValue) => {this.props.changePrice(newValue)}}
           />
         </Grid>
 
@@ -71,21 +72,3 @@ export class ShoppingItemRow extends React.Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    shopping_list: state.shoppingList.shopping_list,
-    essentialItems: state.shoppingList.essentialItems,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ShoppingItemRow);
