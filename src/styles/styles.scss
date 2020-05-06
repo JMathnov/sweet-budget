@@ -39,6 +39,21 @@ h2 {
   bottom: 0;
 }
 
+.popup{
+  min-width: 600px;
+  max-width:1080px;
+  padding-top:10px;
+}
+
+.popup-content {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: auto !important;
+  min-width: 800px;
+  max-width: 1080px;
+  overflow: scroll;
+}
 .curate {
   min-width: 800px;
   max-width: 1100px;

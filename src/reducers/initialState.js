@@ -1,5 +1,6 @@
 export default {
   sweetBudget: {
+    blacklistedProducts: [],
     essentialItems: {
       toilet_paper: [
         {
