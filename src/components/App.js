@@ -10,6 +10,8 @@ import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
+import HoneyHeader from './HoneyHeader';
+import HoneyFooter from './HoneyFooter';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -25,6 +27,7 @@ class App extends React.Component {
     return (
       <div>
         <div>
+          <HoneyHeader />
           <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
           {' | '}
           <NavLink to="/new-shopping-list" activeStyle={activeStyle}>New List</NavLink>
@@ -34,8 +37,8 @@ class App extends React.Component {
           <NavLink to="/shopping-list-status" activeStyle={activeStyle}>List status</NavLink>
           {' | '}
           <NavLink to="/order-complete" activeStyle={activeStyle}>Order Complete</NavLink>
-
         </div>
+
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/new-shopping-list" component={NewShoppingList} />
@@ -44,6 +47,8 @@ class App extends React.Component {
           <Route path="/order-complete" component={ShoppingComplete} />
           <Route component={NotFoundPage} />
         </Switch>
+
+        <HoneyFooter />
       </div>
     );
   }

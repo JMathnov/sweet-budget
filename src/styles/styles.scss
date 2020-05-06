@@ -8,8 +8,8 @@ body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
+  min-width: 1360px;
+  max-width: 1360px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -28,6 +28,16 @@ h2 {
 .shopping_list {
   height: 100%;
   width: 30%;
+}
+
+.footer {
+  bottom: 0;
+}
+
+.curate {
+  min-width: 800px;
+  max-width: 1100px;
+  margin: auto !important;
 }
 
 .savings { color: $vin-green; }

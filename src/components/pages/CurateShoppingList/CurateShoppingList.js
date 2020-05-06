@@ -23,8 +23,7 @@ export class CurateShoppingList extends React.Component {
 
   render() {
     return (
-      <Grid container spacing={1} className={'cart-header'}>
-
+      <Grid container spacing={1} className={'curate'}>
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>Qty</Grid>
         <Grid item xs={2}>Limit price</Grid>
