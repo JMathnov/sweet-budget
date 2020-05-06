@@ -2,20 +2,128 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Link } from "react-router-dom";
+
+import withStyles from "@material-ui/styles/withStyles";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+import CategoryItem from './CategoryItem';
 import * as actions from '../../../actions/sweetBudgetActions';
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    paddingTop: 25,
+    paddingBottom: 25
+  },
+  grid: {
+    width: '100%',
+    height: '100%',
+    [theme.breakpoints.down("sm")]: {
+      width: "calc(100% - 20px)"
+    }
+  },
+  leftPanel: {
+    width: '100%',
+    height: 800,
+  },
+  rightPanel: {
+    width: '100%',
+    height: 800,
+  },
+  paper: {
+    padding: theme.spacing(3),
+    margin: theme.spacing(2),
+    textAlign: "left",
+    color: theme.palette.text.secondary
+  },
+  actionButtom: {
+    textTransform: "uppercase",
+    margin: theme.spacing(1),
+    width: 152,
+    height: 36
+  },
+  buttonBar: {
+    display: "flex"
+  },
+});
+
 export class NewShoppingList extends React.Component {
-  saveFuelSavings = () => {
-    this.props.actions.saveFuelSavings(this.props.fuelSavings);
-  };
+  // saveFuelSavings = () => {
+  //   this.props.actions.saveFuelSavings(this.props.fuelSavings);
+  // };
 
-  calculateFuelSavings = e => {
-    this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
-  };
-
+  // calculateFuelSavings = e => {
+  //   this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
+  // };
   render() {
-    return (      <div>asdf</div>
-
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+          <Grid spacing={1} justify="center" container className={classes.grid}>
+            <Grid item md={9}>
+              <Paper className={classes.paper} style={{ position: "relative" }}>
+                  <Typography variant="h5" gutterBottom>
+                    Shop Essential Items
+                  </Typography>
+                  <Typography variant="body2">
+                    Select the product categories for your budget
+                  </Typography>
+                  <Grid container spacing={2} justify="center" className={classes.leftPanel}>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                    <Grid item md>
+                      <CategoryItem />
+                    </Grid>
+                  </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={3} className={classes.grid3}>
+              <Paper className={classes.paper} style={{ position: "relative" }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Shopping List
+                </Typography>
+                <Grid container spacing={2} justify="center" className={classes.rightPanel}>
+                  <div className={classes.buttonBar}>
+                    <Button
+                      to={{ pathname: "/dashboard", search: `?type=save` }}
+                      component={Link}
+                      variant="outlined"
+                      className={classes.actionButtom}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </Grid>
+              </Paper>
+            </Grid>
+        </Grid>
+    </div>
     );
   }
 }
@@ -40,4 +148,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewShoppingList);
+)(withStyles(styles)(NewShoppingList));
