@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { Button } from '@honeyscience/honey-ui-toolkit';
 import * as actions from '../../../actions/sweetBudgetActions';
 
 
@@ -14,6 +15,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     margin: '30px 130px 30px 130px',
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: '0px 0px 30px 0px',
+  },
+  resetButton: {
+    margin: '0px 15px 0px 0px',
   },
   titleSection: {
     display: 'flex',
@@ -45,6 +54,15 @@ export class OrderStatus extends React.Component {
     day: 0,
   }
 
+  onResetClick = () => {
+    this.setState({ day: 0 });
+    // Fire an action to reset `purchasePrice` in `shopping_list.items`
+  }
+
+  onNextDayClick = () => {
+    this.setState(({ day: currentDay }) => ({ day: currentDay + 1 }));
+  }
+
   renderItems = () => {
     const { selectedShoppingItems, dailyCurrentPrices } = this.props;
     const currentDay = this.state.day;
@@ -67,6 +85,10 @@ export class OrderStatus extends React.Component {
   render() {
     return (
       <div style={ styles.main }>
+        <div style={ styles.buttons }>
+          <div style={ styles.resetButton}><Button buttonType="secondary-ghost" copy="Reset" onClick={ this.onResetClick } /></div>
+          <Button buttonType="secondary-ghost" copy="Next Day" onClick={ this.onNextDayClick } />
+        </div>
         <div style={ styles.titleSection }>
           <div style={ styles.titleValue }>Product</div>
           <div style={ styles.titleValue }>Purchase Price</div>
