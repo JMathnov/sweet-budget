@@ -12,6 +12,22 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
   let newState;
 
   switch (action.type) {
+    case actionTypes.BLACKLIST_PRODUCT:
+      const category = _.get(state.essentialItems, action.category, []);
+      const productToBlacklist = _.find(category, {'parent_id': action.product.parent_id}, null);
+      productToBlacklist['blacklisted'] = true;
+
+      const newCategory = category.filter(item => item.parent_id !== action.product.parent_id).concat([productToBlacklist]);
+
+      debugger;
+      return {
+        ...state,
+        essentialItems: {
+          ...state.essentialItems,
+          [action.category]: newCategory,
+        },
+      };
+
     case actionTypes.SUBMIT_LIST:
       // save the shopping list somewhere
 

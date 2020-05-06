@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import {median} from 'mathjs';
 import Slider from '@material-ui/core/Slider';
+import Popup from "reactjs-popup";
+import blacklistIcon from '../../../assets/blacklist-icon.png';
 
 
 export class ShoppingItemRow extends React.Component {
@@ -15,15 +17,17 @@ export class ShoppingItemRow extends React.Component {
     actions: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     essentialItems: PropTypes.object,
+    itemPrice: PropTypes.number,
     changePrice: PropTypes.func.isRequired,
-    itemPrice: PropTypes.number
+    blacklistProduct: PropTypes.func.isRequired,
   };
 
-  getProductAveragePrice(item) {
+  getAllowedItems(item) {
     const items = _.get(this.props.essentialItems, item.category, {});
+    return _.filter(items, item=> !item.blacklisted);
+  }
 
-    const allowedItems = _.filter(items, item=> !item.blacklisted, []);
-
+  getProductAveragePrice(item, allowedItems) {
     if(allowedItems.length === 0){
       return {};
     } else {
@@ -40,13 +44,41 @@ export class ShoppingItemRow extends React.Component {
   }
 
   render() {
-
-    const priceProfile = this.getProductAveragePrice(this.props.item);
+    const allowedItems = this.getAllowedItems(this.props.item);
+    const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
       <Grid container spacing={1}>
-          <Grid item xs={1}>
+
+
+          <Popup trigger={<Grid item xs={1}
+                                modal
+                                closeOnDocumentClick
+                                className={'category_label'}>
             {this.props.item.name}
-          </Grid>
+          </Grid>} position={"center center"}>
+            <Grid container spacing={1}>
+              {allowedItems.map(product => {
+                return (<Grid container spacing={1} className={'popup'}>
+                  <Grid item xs={2}>
+                    <img src={product.image_url_primary} style={{height:'60px', width:'60px', position: 'relative', margin: 'auto', left:'15%'}}/>
+                  </Grid>
+                  <Grid item xs={7}>
+                    {product.title}
+                  </Grid>
+                  <Grid item xs={2}>
+                    ${parseFloat(product.price_current) / 100}
+                  </Grid>
+                  <Grid item xs={1}>
+                    <img
+                      src={blacklistIcon}
+                      style={{height:'40px', width:'40px', cursor: 'pointer'}}
+                      onClick={() => this.props.blacklistProduct(product, this.props.item.category)}/>
+                  </Grid>
+                </Grid>)
+              })}
+            </Grid>
+          </Popup>
+
           <Grid item xs={1}>
             {this.props.item.quantity}
           </Grid>
@@ -60,10 +92,10 @@ export class ShoppingItemRow extends React.Component {
             getAriaValueText={(item) => "$" + item}
             aria-labelledby="discrete-slider-custom"
             step={0.01}
-            min={priceProfile.cheapest * .95}
-            max={priceProfile.mostExpensive * 1.05}
+            min={priceProfile.cheapest * .90}
+            max={priceProfile.mostExpensive * 1.1}
             valueLabelDisplay="auto"
-            marks={[{value: priceProfile.median, label: "Median"}]}
+            marks={[{value: priceProfile.cheapest, label: "$" + priceProfile.cheapest},{value: priceProfile.mostExpensive, label: "$" + priceProfile.mostExpensive}, {value: priceProfile.median, label: "Med: $" + priceProfile.median}]}
             onChange={(event, newValue) => {this.props.changePrice(newValue)}}
           />
         </Grid>

@@ -7,15 +7,14 @@ import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from "@material-ui/core/Grid";
 
 export class CurateShoppingList extends React.Component {
-  propTypes = {
-    actions: PropTypes.object.isRequired,
-    shopping_list: PropTypes.arrayOf(PropTypes.object).isRequired
-  };
-
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  blacklistProduct = (product, category)  => {
+    this.props.actions.blacklistProduct(product, category);
+  };
 
   changeItemLimitPrice(item, limitPrice) {
     this.setState({[item.category] : limitPrice})
@@ -26,7 +25,7 @@ export class CurateShoppingList extends React.Component {
       <Grid container spacing={1} className={'curate'}>
         <Grid item xs={1}/>
         <Grid item xs={1}>Qty</Grid>
-        <Grid item xs={1}>Limit price</Grid>
+        <Grid item xs={1}>Your Limit</Grid>
 
         <Grid item xs={3} className={'color-cart'} style={{'text-align': 'left'}}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="green"
@@ -57,15 +56,23 @@ export class CurateShoppingList extends React.Component {
         </Grid>
 
         {this.props.shopping_list.items.map(item =>
-          <ShoppingItemRow item={item} essentialItems={this.props.essentialItems} changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)} itemPrice={_.get(this.state, item.category, null)}/>
+          <ShoppingItemRow
+            item={item}
+            essentialItems={this.props.essentialItems}
+            changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
+            itemPrice={_.get(this.state, item.category, null)} blacklistProduct={this.blacklistProduct} />
           )}
       </Grid>
     );
   }
 }
 
+CurateShoppingList.propTypes = {
+  actions: PropTypes.object.isRequired,
+  shopping_list: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
-  console.log(state);
   return {
     shopping_list: state.shoppingList.shopping_list,
     essentialItems: state.shoppingList.essentialItems,
