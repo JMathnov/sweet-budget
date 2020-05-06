@@ -6025,12 +6025,16 @@ export default {
 
     shopping_list: {
       items: [
-        {name: 'Toilet Paper', category: 'toilet_paper', quantity: 5, limit_price:  null},
-        {name: 'Latex Gloves', category: 'gloves', quantity: 2, limit_price:  null},
-        {name: 'Hand Soap', category: 'soap', quantity: 1, limit_price:  null}
+        {name: 'Toilet Paper', category: 'toilet_paper', quantity: 5, limit_price:  null, goodUntil: 3, purchasePrice: null},
+        {name: 'Latex Gloves', category: 'gloves', quantity: 2, limit_price:  null, goodUntil: 3, purchasePrice: null},
+        {name: 'Hand Soap', category: 'soap', quantity: 1, limit_price:  null, goodUntil: 3, purchasePrice: null},
       ]
     },
+
+    dailyCurrentPrices: {
+      toilet_paper: [5.23, 5.25, 5.01, 5.11, 5.8],
+      gloves: [2.23, 2.25, 2.01, 2.11, 2.8],
+      soap: [1.23, 1.25, 1.01, 1.11, 1.8],
+    },
   }
-
-
 };
