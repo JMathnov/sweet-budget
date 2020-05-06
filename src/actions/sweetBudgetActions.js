@@ -2,6 +2,10 @@ import * as types from '../constants/actionTypes';
 
 import {getFormattedDateTime} from '../utils/dates';
 
+
+
+
+
 // example of a thunk using the redux-thunk middleware
 export function saveFuelSavings(settings) {
   return function (dispatch) {
@@ -13,6 +17,14 @@ export function saveFuelSavings(settings) {
       settings
     });
   };
+}
+
+export function blacklistProduct(product, category) {
+  return {
+    type: types.BLACKLIST_PRODUCT,
+    category,
+    product
+  }
 }
 
 export function calculateFuelSavings(settings, fieldName, value) {

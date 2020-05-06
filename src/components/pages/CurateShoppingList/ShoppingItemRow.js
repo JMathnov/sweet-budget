@@ -17,8 +17,9 @@ export class ShoppingItemRow extends React.Component {
     actions: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     essentialItems: PropTypes.object,
+    itemPrice: PropTypes.number,
     changePrice: PropTypes.func.isRequired,
-    itemPrice: PropTypes.number
+    blacklistProduct: PropTypes.func.isRequired,
   };
 
   getAllowedItems(item) {
@@ -68,18 +69,14 @@ export class ShoppingItemRow extends React.Component {
                     ${parseFloat(product.price_current) / 100}
                   </Grid>
                   <Grid item xs={1}>
-                    <img src={blacklistIcon} style={{height:'40px', width:'40px'}}/>
+                    <img
+                      src={blacklistIcon}
+                      style={{height:'40px', width:'40px', cursor: 'pointer'}}
+                      onClick={() => this.props.blacklistProduct(product, this.props.item.category)}/>
                   </Grid>
                 </Grid>)
               })}
             </Grid>
-
-
-
-
-
-
-
           </Popup>
 
           <Grid item xs={1}>
