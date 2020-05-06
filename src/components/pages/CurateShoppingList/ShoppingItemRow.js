@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import {median} from 'mathjs';
-
 import Slider from '@material-ui/core/Slider';
 
 
@@ -23,10 +22,10 @@ export class ShoppingItemRow extends React.Component {
 
     const allowedItems = _.filter(items, item=> !item.blacklisted, []);
 
-    if(allowedItems.length == 0){
+    if(allowedItems.length === 0){
       return {};
     } else {
-      const prices = allowedItems.map(item=> item.price).sort();
+      const prices = _.sortBy(allowedItems.map(item=> parseFloat(item.price_current) / 100));
       const cheapest = prices[0];
       const mostExpensive = prices[prices.length - 1];
 
@@ -36,9 +35,6 @@ export class ShoppingItemRow extends React.Component {
         median: median(prices)
       };
     }
-
-
-
   }
 
   render() {
@@ -58,7 +54,16 @@ export class ShoppingItemRow extends React.Component {
           </Grid>
 
         <Grid item xs={6}>
-
+          <Slider
+            defaultValue={priceProfile.median}
+            getAriaValueText={(item) => "$" + item}
+            aria-labelledby="discrete-slider-custom"
+            step={0.01}
+            min={priceProfile.cheapest * .95}
+            max={priceProfile.mostExpensive * 1.05}
+            valueLabelDisplay="auto"
+            marks={[{value: priceProfile.median, label: "Median"}]}
+          />
         </Grid>
 
       </Grid>
@@ -68,7 +73,6 @@ export class ShoppingItemRow extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     shopping_list: state.shoppingList.shopping_list,
     essentialItems: state.shoppingList.essentialItems,
