@@ -37,7 +37,7 @@ export class CurateShoppingList extends React.Component {
         </Grid>
 
         {this.props.shopping_list.items.map(item =>
-          <ShoppingItemRow item={item} essentialItems={this.props.essentialItems} changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}/>
+          <ShoppingItemRow item={item} essentialItems={this.props.essentialItems} changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)} itemPrice={_.get(this.state, item.name, null)}/>
           )}
       </Grid>
     );

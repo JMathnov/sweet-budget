@@ -16,6 +16,7 @@ export class ShoppingItemRow extends React.Component {
     item: PropTypes.object.isRequired,
     essentialItems: PropTypes.object,
     changePrice: PropTypes.func.isRequired,
+    itemPrice: PropTypes.number
   };
 
   getProductAveragePrice(item) {
@@ -50,7 +51,7 @@ export class ShoppingItemRow extends React.Component {
             {this.props.item.quantity}
           </Grid>
           <Grid item xs={2}>
-            {this.props.item.price}
+            {this.props.itemPrice ? "$" + this.props.itemPrice : "N/a"}
           </Grid>
 
         <Grid item xs={6}>
