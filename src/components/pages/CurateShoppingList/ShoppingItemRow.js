@@ -42,8 +42,6 @@ export class ShoppingItemRow extends React.Component {
     const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
       <Grid container spacing={1}>
-
-
         <Popup trigger={<Grid item xs={1}
                               modal
                               closeOnDocumentClick
