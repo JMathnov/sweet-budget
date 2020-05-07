@@ -108,8 +108,8 @@ export class OrderStatus extends React.Component {
   render() {
     const { dailyCurrentPrices, selectedShoppingItems } = this.props;
     const nextDayButtonStatus = this.state.day === dailyCurrentPrices.toilet_paper.length - 1 ? 'disabled' : '';
-    const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + item.purchasePrice), 0);
-    const totalHoneyGold = selectedShoppingItems.reduce((acc, item) => (acc + item.honeyGold), 0);
+    const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.purchasePrice)), 0);
+    const totalHoneyGold = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.honeyGold)), 0);
     const totalSavings = totalHoneyGold / 100;
 
     return (

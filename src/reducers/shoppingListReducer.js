@@ -18,6 +18,7 @@ function updatePurchasePrice(action, state) {
     // Good time to purchase. Update new purchasePrice
     return Object.assign({}, item, {
       purchasePrice: currentDayCategoryPrice,
+      honeyGold: currentDayCategoryPrice * 5, // Assign 5% Honey Gold for every purchase.
     })
   });
 
@@ -36,7 +37,7 @@ function resetPurchasePrices(_, state) {
   const { items: shoppingListItems } = shoppingList;
 
   const newShoppingListItems = shoppingListItems.map((item) => {
-    return Object.assign({}, item, { purchasePrice: null });
+    return Object.assign({}, item, { purchasePrice: null, honeyGold: null });
   });
 
   const newState = Object.assign({}, state, {
