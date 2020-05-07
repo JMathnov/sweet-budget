@@ -1,7 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-import {getFormattedDateTime} from '../utils/dates';
-
 export function submitList(limitPrices) {
   return {
     type: types.SUBMIT_LIST,
@@ -9,19 +7,13 @@ export function submitList(limitPrices) {
   }
 }
 
-export function addProductToSoppingList(product) {
+export function adjustCart(product, adjustFunc) {
   return {
-    type: types.ADD_PRODUCT_TO_SHOPPING_LIST,
-    product
-  };
+    type: types.ADJUST_CART,
+    product,
+    adjustFunc
+  }
 }
-
-// export function adjustProductQuantity(product) {
-//   return {
-//     type: types.ADJUST_QAUNTITY,
-//     product
-//   }
-// }
 
 export function blacklistProduct(product, category) {
   return {

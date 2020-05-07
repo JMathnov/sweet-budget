@@ -4,11 +4,29 @@ import objectAssign from 'object-assign';
 import initialState from './initialState';
 import * as actionTypes from '../constants/actionTypes';
 
-function addProductToShoppingList(action, state) {
+function adjustCart(action, state) {
   const { shopping_list: shoppingList } = state;
   const { items: shoppingListItems } = shoppingList;
 
-  shoppingListItems.push(action.product);
+  const { product, adjustFunc } = action;
+
+  const quantity = adjustFunc(product.quantity);
+  action.product.quantity = quantity;
+  action.product.inCart = quantity > 0;
+
+  if (quantity <= 0) {
+    _.remove(shoppingListItems, {
+      category: product.category
+    });
+  } else {
+    const item = _.find(shoppingListItems, {
+      category:product.category
+    });
+
+    if (!item) {
+      shoppingListItems.push(action.product);
+    }
+  }
 
   const newState = Object.assign({}, state, {
     shopping_list: Object.assign({}, state.shopping_list, {
@@ -18,13 +36,6 @@ function addProductToShoppingList(action, state) {
 
   return newState;
 }
-
-// function adjustProductQuautity(action, state) {
-//   const { shopping_list: shoppingList } = state;
-//   const { items: shoppingListItems } = shoppingList;
-
-//   const item
-// }
 
 function updatePurchasePrice(action, state) {
   const { currentPriceIndex } = action;
@@ -52,7 +63,6 @@ function updatePurchasePrice(action, state) {
   return newState;
 }
 
-
 function resetPurchasePrices(_, state) {
   const { shopping_list: shoppingList } = state;
   const { items: shoppingListItems } = shoppingList;
@@ -69,7 +79,6 @@ function resetPurchasePrices(_, state) {
 
   return newState;
 }
-
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -95,11 +104,8 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
         },
       };
 
-    case actionTypes.ADD_PRODUCT_TO_SHOPPING_LIST:
-      return addProductToShoppingList(action, state);
-
-    // case actionTypes.ADJUST_QAUNTITY:
-    //   return adjustProductQuautity(action, state);
+    case actionTypes.ADJUST_CART:
+      return adjustCart(action, state);
 
     case actionTypes.SUBMIT_LIST:
       // save the shopping list somewhere

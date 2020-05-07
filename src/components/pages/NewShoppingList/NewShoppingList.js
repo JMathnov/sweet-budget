@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import CategoryList from './CategoryList';
+import ShoppingItemRow from './ShoppingItemRow';
 import * as actions from '../../../actions/sweetBudgetActions';
 
 const styles = theme => ({
@@ -51,42 +52,14 @@ const styles = theme => ({
   },
 });
 
-const ShoppingItemRow = ({item, adjust}) => (
-  <div>
-    <Button
-    variant="outlined"
-    color="primary"
-    onClick={() => adjust("+", item)}>+</Button>
-    <Button
-    variant="outlined"
-    color="primary"
-    onClick={() => adjust("-", item)}>-</Button>
-    <div>x{item.quantity}</div>
-    <div>{item.name}</div>
-  </div>
-)
-
 export class NewShoppingList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  adjustQauntity = (sign, item) => {
-    console.log("Adjust Quantity")
-  }
-
-  addItemToCart = (item) => {
-    const shoppingListItem = {
-      ...item,
-      quantity: 1,
-      limit_price:  null,
-      goodUntil: null,
-      purchasePrice: null,
-      honeyGold: null
-    };
-
-    this.props.actions.addProductToSoppingList(shoppingListItem);
+  adjustCart = (item, func) => {
+    this.props.actions.adjustCart(item, func);
   }
 
   render() {
@@ -103,10 +76,10 @@ export class NewShoppingList extends React.Component {
                 <Typography variant="body2">
                   Select product categories for your budget
                 </Typography>
-                <CategoryList items={this.props.product_category_list} onClick={this.addItemToCart} />
+                <CategoryList items={this.props.product_category_list} onClick={this.adjustCart} />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={3} className={classes.grid3}>
+          <Grid item md={3} className={classes.grid3}>
             <Paper className={classes.paper} style={{ position: "relative" }}>
               <Grid container justify="center" className={classes.rightPanel}>
                 <Typography variant="h5" gutterBottom>
@@ -114,8 +87,8 @@ export class NewShoppingList extends React.Component {
                 </Typography>
                 <Grid container justify="center">
                   {this.props.shopping_list.items.map((item) =>
-                    <Grid item>
-                      <ShoppingItemRow item={item} adjust={this.adjustQauntity}></ShoppingItemRow>
+                    <Grid item xs={12}>
+                      <ShoppingItemRow item={item} adjust={this.adjustCart}></ShoppingItemRow>
                     </Grid>
                   )}
                 </Grid>
@@ -126,7 +99,7 @@ export class NewShoppingList extends React.Component {
                       component={Link}
                       variant="outlined"
                       color="primary"
-                      className={classes.actionButtom}>
+                      className={classes.actionButtom} disabled={this.props.shopping_list.items.length <= 0}>
                       Submit
                     </Button>
                   </div>

@@ -51,7 +51,8 @@ const CategoryList = ({classes, items, onClick}) => (
               <Button color="primary"
               variant="contained"
               className={classes.actionButtom}
-              onClick={() => onClick(item)}>
+              disabled={item.inCart}
+              onClick={() => onClick(item, (quantity) => quantity + 1)}>
                 <div className={classes.whiteText}>Add</div>
               </Button>
             </div>
