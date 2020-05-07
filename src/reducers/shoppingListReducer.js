@@ -153,6 +153,15 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
     case actionTypes.RESET_PURCHASE_PRICE:
       return resetPurchasePrices(action, state);
 
+    case actionTypes.ORDER_COMPLETED:
+      return {
+        ...state,
+        order: {
+          totalSaved: action.totalSaved,
+          bonusGold: action.bonusGold
+        }
+      };
+
     default:
       return state;
   }

@@ -7,26 +7,18 @@ import * as actions from '../../../actions/sweetBudgetActions';
 export class ShoppingComplete extends React.Component {
   propTypes = {
     actions: PropTypes.object.isRequired,
-    fuelSavings: PropTypes.object.isRequired
-  };
-
-  saveFuelSavings = () => {
-    this.props.actions.saveFuelSavings(this.props.fuelSavings);
-  };
-
-  calculateFuelSavings = e => {
-    this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
+    order: PropTypes.object.isRequired
   };
 
   render() {
-    return (<div>foo</div>
+    return (<div>{JSON.stringify(this.props.order)}</div>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    fuelSavings: state.fuelSavings
+    order: state.shoppingList.order
   };
 }
 

@@ -88,6 +88,13 @@ export class OrderStatus extends React.Component {
     updatePurchasePricesForDay({day: nextDay});
   };
 
+  orderCompletedEverythingPurchased = (totalSaved, bonusGold) => {
+    const {orderCompleted} = this.props.actions;
+
+    orderCompleted({totalSaved, bonusGold});
+    this.props.history.push("/order-complete")
+  };
+
   renderItems = () => {
     const {selectedShoppingItems, dailyCurrentPrices} = this.props;
     const currentDay = this.state.day;
@@ -128,7 +135,7 @@ export class OrderStatus extends React.Component {
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
     if(allPurchased) {
-      this.props.history.push("/order-complete")
+      this.orderCompletedEverythingPurchased(totalSaved, bonusGold);
     }
     return (
       <div style={styles.main}>
