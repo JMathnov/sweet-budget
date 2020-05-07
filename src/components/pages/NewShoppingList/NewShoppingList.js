@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import withStyles from "@material-ui/styles/withStyles";
 import Button from "@material-ui/core/Button";
@@ -63,7 +63,7 @@ export class NewShoppingList extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <div className={classes.root}>
@@ -83,7 +83,7 @@ export class NewShoppingList extends React.Component {
             <Paper className={classes.paper} style={{ position: "relative" }}>
               <Grid container justify="center" className={classes.rightPanel}>
                 <Typography variant="h5" gutterBottom>
-                Shopping List
+                  Shopping List
                 </Typography>
                 <Grid container justify="center">
                   {this.props.shopping_list.items.map((item) =>
@@ -95,7 +95,7 @@ export class NewShoppingList extends React.Component {
                 <Grid item>
                   <div className={classes.buttonBar}>
                     <Button
-                      to={{ pathname: "/curate-shopping-list" }}
+                      to={{pathname: "/curate-shopping-list"}}
                       component={Link}
                       variant="outlined"
                       color="primary"
@@ -107,8 +107,8 @@ export class NewShoppingList extends React.Component {
               </Grid>
             </Paper>
           </Grid>
-      </Grid>
-    </div>
+        </Grid>
+      </div>
     );
   }
 }
