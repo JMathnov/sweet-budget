@@ -32,7 +32,7 @@ export class CurateShoppingList extends React.Component {
 
   submitOrder = (limitOrders) => {
     this.props.actions.submitList(limitOrders);
-    this.props.history.push("/shopping-list-status");
+    this.props.history.push("/shipping-and-payment");
   };
 
   render() {
