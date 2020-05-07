@@ -133,7 +133,7 @@ export class OrderStatus extends React.Component {
     const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.limit_price)), 0).toFixed(2);
 
     const totalSaved = selectedShoppingItems.filter(item => !!item.purchasePrice).reduce((acc, item) => acc + ((item.limit_price - item.purchasePrice) * item.quantity), 0);
-    const totalSpent = estimatedPrice - totalSaved;
+    const totalSpent = selectedShoppingItems.filter(item => !!item.purchasePrice).reduce((acc, item) => acc + (item.purchasePrice * item.quantity), 0);
     const bonusGold = totalSpent * .05 * 100; // gold is represented in pennies
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
