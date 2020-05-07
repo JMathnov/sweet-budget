@@ -127,6 +127,9 @@ export class OrderStatus extends React.Component {
     const bonusGold = totalSpent * .05 * 100; // gold is represented in pennies
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
+    if(allPurchased) {
+      this.props.history.push("/order-complete")
+    }
     return (
       <div style={styles.main}>
         <div style={styles.buttons}>
