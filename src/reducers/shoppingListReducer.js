@@ -3,6 +3,52 @@ import {necessaryDataIsProvidedToCalculateSavings, calculateSavings} from '../ut
 import objectAssign from 'object-assign';
 import initialState from './initialState';
 import * as actionTypes from '../constants/actionTypes';
+
+
+function updatePurchasePrice(action, state) {
+  const { currentPriceIndex } = action;
+  const { shopping_list: shoppingList, dailyCurrentPrices } = state;
+
+  const { items: shoppingListItems } = shoppingList;
+  const newShoppingListItems = shoppingListItems.map((item) => {
+    const currentDayCategoryPrice = dailyCurrentPrices[item.category][currentPriceIndex];
+    // Current Price is too high so no changes.
+    if (currentDayCategoryPrice > item.limit_price) { return item; }
+
+    // Good time to purchase. Update new purchasePrice
+    return Object.assign({}, item, {
+      purchasePrice: currentDayCategoryPrice,
+    })
+  });
+
+  const newState = Object.assign({}, state, {
+    shopping_list: Object.assign({}, state.shopping_list, {
+      items: newShoppingListItems,
+    }),
+  });
+
+  return newState;
+}
+
+
+function resetPurchasePrices(_, state) {
+  const { shopping_list: shoppingList } = state;
+  const { items: shoppingListItems } = shoppingList;
+
+  const newShoppingListItems = shoppingListItems.map((item) => {
+    return Object.assign({}, item, { purchasePrice: null });
+  });
+
+  const newState = Object.assign({}, state, {
+    shopping_list: Object.assign({}, state.shopping_list, {
+      items: newShoppingListItems,
+    }),
+  });
+
+  return newState;
+}
+
+
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
 // create a copy of the state passed and set new values on the copy.
@@ -43,6 +89,12 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
       }
 
       return newState;
+
+    case actionTypes.UPDATE_PURCHASE_PRICE:
+      return updatePurchasePrice(action, state);
+
+    case actionTypes.RESET_PURCHASE_PRICE:
+      return resetPurchasePrices(action, state);
 
     default:
       return state;

@@ -24,3 +24,18 @@ export function calculateFuelSavings(settings, fieldName, value) {
     value
   };
 }
+
+
+export function updatePurchasePricesForDay({ day }) {
+  return {
+    type: types.UPDATE_PURCHASE_PRICE,
+    currentPriceIndex: day,
+  }
+}
+
+
+export function resetPurchasePrices() {
+  return {
+    type: types.RESET_PURCHASE_PRICE
+  }
+}

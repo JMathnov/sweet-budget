@@ -39,6 +39,21 @@ const styles = {
   },
   itemValue: {
     width: '25%',
+  },
+  summarySection: {
+    display: 'flex',
+    margin: '40px 0px 0px 0px',
+  },
+  summaryItem: {
+    display: 'flex',
+    width: '25%',
+  },
+  summaryHeader: {
+    fontSize: '14px',
+    fontWeight: 500,
+  },
+  summaryValue: {
+
   }
 }
 
@@ -48,6 +63,7 @@ export class OrderStatus extends React.Component {
     actions: PropTypes.object.isRequired,
     selectedShoppingItems: PropTypes.array.isRequired,
     dailyCurrentPrices: PropTypes.object.isRequired,
+    updatePurchasePricesForDay: PropTypes.func.isRequired,
   }
 
   state = {
@@ -55,12 +71,18 @@ export class OrderStatus extends React.Component {
   }
 
   onResetClick = () => {
+    const { resetPurchasePrices } = this.props.actions;
+
     this.setState({ day: 0 });
-    // Fire an action to reset `purchasePrice` in `shopping_list.items`
+    resetPurchasePrices();
   }
 
   onNextDayClick = () => {
-    this.setState(({ day: currentDay }) => ({ day: currentDay + 1 }));
+    const { updatePurchasePricesForDay } = this.props.actions;
+    const nextDay = this.state.day + 1;
+
+    this.setState(() => ({ day: nextDay }));
+    updatePurchasePricesForDay({ day: nextDay });
   }
 
   renderItems = () => {
@@ -68,24 +90,27 @@ export class OrderStatus extends React.Component {
     const currentDay = this.state.day;
 
     return selectedShoppingItems.map((item) => {
-      const { name, category, goodUntil } = item;
+      const { name, category, purchasePrice, goodUntil } = item;
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
       return (
         <div style={ styles.itemRow } key={ category }>
           <div style={ styles.itemValue }>{ name }</div>
-          <div style={ styles.itemValue }>{ '-' }</div>
-          <div style={ styles.itemValue }>{ currentPrice }</div>
-          <div style={ styles.itemValue }>{ dynamicGoodUntil }</div>
+          <div style={ styles.itemValue }>$&nbsp;{ purchasePrice || '-' }</div>
+          <div style={ styles.itemValue }>$&nbsp;{ currentPrice }</div>
+          <div style={ styles.itemValue }>{ dynamicGoodUntil > 0 ? `${ dynamicGoodUntil } day(s)` : 'Not checking anymore' }</div>
         </div>
       );
     });
   }
 
   render() {
-    const { dailyCurrentPrices } = this.props;
+    const { dailyCurrentPrices, selectedShoppingItems } = this.props;
     const nextDayButtonStatus = this.state.day === dailyCurrentPrices.toilet_paper.length - 1 ? 'disabled' : '';
+    const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + item.purchasePrice), 0);
+    const totalHoneyGold = selectedShoppingItems.reduce((acc, item) => (acc + item.honeyGold), 0);
+    const totalSavings = totalHoneyGold / 100;
 
     return (
       <div style={ styles.main }>
@@ -101,6 +126,18 @@ export class OrderStatus extends React.Component {
         </div>
         <div>
           { this.renderItems() }
+        </div>
+        <div style={ styles.summarySection }>
+          <div style={ styles.summaryItem }>
+            <div style={ styles.summaryHeader}>Estimated Price:&nbsp;</div>
+            <div style={ styles.summaryValue}>$&nbsp;{ estimatedPrice }</div>
+          </div>
+          <div style={ styles.summaryItem } />
+          <div style={ styles.summaryItem } />
+          <div style={ styles.summaryItem }>
+            <div style={ styles.summaryHeader}>Total Savings:&nbsp;</div>
+            <div style={ styles.summaryValue}>$&nbsp;{ totalSavings }</div>
+          </div>
         </div>
       </div>
     );
