@@ -5,11 +5,14 @@ import {bindActionCreators} from 'redux';
 import {ShoppingItemRow} from './ShoppingItemRow';
 import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from "@material-ui/core/Grid";
+import { Button } from '@honeyscience/honey-ui-toolkit';
 
 export class CurateShoppingList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      limits: []
+    };
   }
 
   blacklistProduct = (product, category)  => {
@@ -17,10 +20,22 @@ export class CurateShoppingList extends React.Component {
   };
 
   changeItemLimitPrice(item, limitPrice) {
-    this.setState({[item.category] : limitPrice})
+    this.setState({
+      limits: {
+        ...this.state.limits,
+        [item.category]: limitPrice
+      },
+    });
   }
 
+  submitOrder = (limitOrders) => {
+    this.props.actions.submitList(limitOrders);
+    browserHistory.push('/shopping-list-status');
+  };
+
   render() {
+    const orderCanBeSubmitted = Object.keys(this.state.limits).length === this.props.shopping_list.items.length ? '' : 'disabled';
+
     return (
       <Grid container spacing={1} className={'curate'}>
         <Grid item xs={1}/>
@@ -62,6 +77,11 @@ export class CurateShoppingList extends React.Component {
             changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
             itemPrice={_.get(this.state, item.category, null)} blacklistProduct={this.blacklistProduct} />
           )}
+
+          <Grid item xs={8}/>
+          <Grid item xs={4}>
+            <Button buttonType="secondary-ghost" copy="Submit Order" onClick={ () => this.submitOrder(this.state.limits) } status={ orderCanBeSubmitted } />
+          </Grid>
       </Grid>
     );
   }

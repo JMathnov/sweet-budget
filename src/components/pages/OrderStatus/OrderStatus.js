@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import { Button } from '@honeyscience/honey-ui-toolkit';
 import * as actions from '../../../actions/sweetBudgetActions';
 
-
 const EMPTY_ARRAY = [];
 const EMPTY_OBJECT = {};
 
@@ -90,17 +89,20 @@ export class OrderStatus extends React.Component {
     const currentDay = this.state.day;
 
     return selectedShoppingItems.map((item) => {
-      const { name, category, purchasePrice, goodUntil } = item;
+      const { name, category, purchasePrice, goodUntil, limit_price } = item;
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
+      const output = !!purchasePrice ?  "<ProductPurchased purchasePrice={purchasePrice} limitPrice={limit_price}/>" : <div style={ styles.itemRow } key={ category }>
+        <div style={ styles.itemValue }>{ name }</div>
+        <div style={ styles.itemValue }>$&nbsp;{ limit_price || '-' }</div>
+        <div style={ styles.itemValue }>$&nbsp;{ currentPrice }</div>
+        <div style={ styles.itemValue }>{ dynamicGoodUntil > 0 ? `${ dynamicGoodUntil } day(s)` : 'Not checking anymore' }</div>
+      </div>;
+
+
       return (
-        <div style={ styles.itemRow } key={ category }>
-          <div style={ styles.itemValue }>{ name }</div>
-          <div style={ styles.itemValue }>$&nbsp;{ purchasePrice || '-' }</div>
-          <div style={ styles.itemValue }>$&nbsp;{ currentPrice }</div>
-          <div style={ styles.itemValue }>{ dynamicGoodUntil > 0 ? `${ dynamicGoodUntil } day(s)` : 'Not checking anymore' }</div>
-        </div>
+        output
       );
     });
   }
@@ -120,7 +122,7 @@ export class OrderStatus extends React.Component {
         </div>
         <div style={ styles.titleSection }>
           <div style={ styles.titleValue }>Product</div>
-          <div style={ styles.titleValue }>Purchase Price</div>
+          <div style={ styles.titleValue }>Limit Price</div>
           <div style={ styles.titleValue }>Current Price</div>
           <div style={ styles.titleValue }>Good Until</div>
         </div>

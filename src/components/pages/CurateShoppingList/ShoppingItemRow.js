@@ -91,8 +91,8 @@ export class ShoppingItemRow extends React.Component {
             getAriaValueText={(item) => "$" + item}
             aria-labelledby="discrete-slider-custom"
             step={0.01}
-            min={priceProfile.cheapest * .90}
-            max={priceProfile.mostExpensive * 1.1}
+            min={priceProfile.cheapest * .75}
+            max={priceProfile.median * 1.25}
             valueLabelDisplay="auto"
             marks={[{value: priceProfile.cheapest, label: "$" + priceProfile.cheapest},{value: priceProfile.mostExpensive, label: "$" + priceProfile.mostExpensive}, {value: priceProfile.median, label: "Med: $" + priceProfile.median}]}
             onChange={(event, newValue) => {this.props.changePrice(newValue)}}
