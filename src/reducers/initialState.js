@@ -2783,5 +2783,9 @@ export default {
       napkins: [1.23, 1.25, 1.01, 1.11, 1.8],
       paper_towels: [5.23, 5.25, 5.01, 5.11, 5.8]
     },
+    order: {
+      totalSaved: 0.00,
+      bonusGold: 125,
+    },
   }
 };

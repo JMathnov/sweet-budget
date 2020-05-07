@@ -44,3 +44,11 @@ export function resetPurchasePrices() {
     type: types.RESET_PURCHASE_PRICE
   }
 }
+
+export function orderCompleted(totalSaved, bonusGold) {
+  return {
+    type: types.ORDER_COMPLETED,
+    totalSaved: totalSaved,
+    bonusGold
+  }
+}
