@@ -66,7 +66,6 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
 
       const newCategory = category.filter(item => item.parent_id !== action.product.parent_id).concat([productToBlacklist]);
 
-      debugger;
       return {
         ...state,
         essentialItems: {

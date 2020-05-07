@@ -34,7 +34,6 @@ export class ShoppingItemRow extends React.Component {
       const prices = _.sortBy(allowedItems.map(item=> parseFloat(item.price_current) / 100));
       const cheapest = prices[0];
       const mostExpensive = prices[prices.length - 1];
-
       return {
         cheapest,
         mostExpensive,
