@@ -107,19 +107,22 @@ export class OrderStatus extends React.Component {
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
-      const output = !!purchasePrice ? <ProductPurchased item={item} purchasePrice={purchasePrice} limitPrice={limit_price}/> :
-        <div style={styles.itemRow} key={category}>
-          <div style={styles.itemValue}>{name}</div>
-          <div style={styles.itemValue}>{item.quantity}</div>
-          <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
-          <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
-          <div
-            style={styles.itemValue}>{dynamicGoodUntil > 0 ? `${dynamicGoodUntil} day(s)` : 'Not checking anymore'}</div>
-        </div>;
-
+      const purchasedProduct = !!purchasePrice && <ProductPurchased item={item} purchasePrice={purchasePrice} limitPrice={limit_price}/>;
 
       return (
-        output
+        <>
+          <div style={styles.itemRow} key={`${category}_row`}>
+            <div style={styles.itemValue}>{name}</div>
+            <div style={styles.itemValue}>{item.quantity}</div>
+            <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
+            <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
+            <div
+              style={styles.itemValue}>{dynamicGoodUntil > 0 ? `${dynamicGoodUntil} day(s)` : 'Not checking anymore'}</div>
+          </div>
+          <div key={`${category}_purchase_msg`}>
+            { purchasedProduct }
+          </div>
+        </>
       );
     });
   };
@@ -135,8 +138,10 @@ export class OrderStatus extends React.Component {
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
     if(allPurchased) {
+      console.log('All Items are purchased. Move to Order Complete.');
       this.orderCompletedEverythingPurchased(totalSaved, bonusGold);
     }
+
     return (
       <div style={styles.main}>
         <div style={styles.buttons}>

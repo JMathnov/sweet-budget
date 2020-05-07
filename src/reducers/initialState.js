@@ -2758,15 +2758,15 @@ export default {
       ]
     },
     product_category_list: [
-      {name: 'Toilet Paper', category: 'toilet_paper', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Latex Gloves', category: 'gloves', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Face Masks', category: 'mask', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Hand Soap', category: 'soap', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Toothpaste', category: 'toothpaste', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Sanitizing Wipes', category: 'sanitizer_wipes', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Hand Sanitizer', category: 'hand_sanitizer', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Tissues', category: 'tissues', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null},
-      {name: 'Napkins', category: 'napkins', inCart: false, quantity: 0, limit_price:  null, goodUntil: null, purchasePrice: null, honeyGold: null}
+      {name: 'Toilet Paper', category: 'toilet_paper', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Latex Gloves', category: 'gloves', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Face Masks', category: 'mask', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Hand Soap', category: 'soap', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Toothpaste', category: 'toothpaste', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Sanitizing Wipes', category: 'sanitizer_wipes', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Hand Sanitizer', category: 'hand_sanitizer', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Tissues', category: 'tissues', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
+      {name: 'Napkins', category: 'napkins', inCart: false, quantity: 0, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null}
     ],
     shopping_list: {
       items: []
