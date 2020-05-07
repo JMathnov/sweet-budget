@@ -147,17 +147,17 @@ export class OrderStatus extends React.Component {
         </div>
         <div style={styles.summarySection}>
           <div style={styles.summaryItem}>
-            <div style={styles.summaryHeader}>Estimated Price:&nbsp;</div>
-            <div style={styles.summaryValue}>$&nbsp;{estimatedPrice}</div>
+            <div style={styles.summaryHeader}>Honey Gold Purchased:&nbsp;</div>
+            <div style={styles.summaryValue}>{estimatedPrice * 100}</div>
           </div>
           <div style={styles.summaryItem}>
-            <div style={styles.summaryHeader}>Amount Spent:&nbsp;</div>
-            <div style={styles.summaryValue}>$&nbsp;{totalSpent.toFixed(2)}</div>
+            <div style={styles.summaryHeader}>Honey Gold Used:&nbsp;</div>
+            <div style={styles.summaryValue}>{totalSpent.toFixed(2) * 100}</div>
           </div>
 
           <div style={styles.summaryItem}>
             <div style={styles.summaryHeader}>Bonus Gold (5%):&nbsp;</div>
-            <div style={styles.summaryValue}>&nbsp;{bonusGold.toFixed(2)} Honey Gold</div>
+            <div style={styles.summaryValue}>{bonusGold.toFixed(0)} Honey Gold</div>
           </div>
           <div style={styles.summaryItem}>
             <div style={styles.summaryHeader}>Total Savings:&nbsp;</div>
