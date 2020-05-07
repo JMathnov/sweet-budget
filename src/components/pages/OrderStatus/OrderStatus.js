@@ -11,6 +11,11 @@ const EMPTY_OBJECT = {};
 
 const styles = {
   main: {
+    minWidth: '800px',
+    maxWidth: '1100px',
+    minHeight: '400px',
+    paddingTop: '75px',
+    paddingBottom: '75px',
     display: 'flex',
     flexDirection: 'column',
     margin: '30px 130px 30px 130px',
