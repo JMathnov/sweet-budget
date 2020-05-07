@@ -5,8 +5,7 @@ import {bindActionCreators} from 'redux';
 import {ShoppingItemRow} from './ShoppingItemRow';
 import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from "@material-ui/core/Grid";
-import { Button } from '@honeyscience/honey-ui-toolkit';
-import { NavLink, Route, Switch, useHistory, Link } from "react-router-dom";
+import {Button} from '@honeyscience/honey-ui-toolkit';
 
 
 export class CurateShoppingList extends React.Component {
@@ -17,7 +16,7 @@ export class CurateShoppingList extends React.Component {
     };
   }
 
-  blacklistProduct = (product, category)  => {
+  blacklistProduct = (product, category) => {
     this.props.actions.blacklistProduct(product, category);
   };
 
@@ -76,13 +75,14 @@ export class CurateShoppingList extends React.Component {
           item={item}
           essentialItems={this.props.essentialItems}
           changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
-          itemPrice={_.get(this.state.limits, item.category, null)} blacklistProduct={this.blacklistProduct} />
+          itemPrice={_.get(this.state.limits, item.category, null)} blacklistProduct={this.blacklistProduct}/>
       )}
 
       <Grid item xs={8}/>
       <Grid item xs={4}>
 
-        <Button buttonType="secondary-ghost" copy="Submit Order" onClick={ () => this.submitOrder(this.state.limits) } status={ orderCanBeSubmitted } />
+        <Button buttonType="secondary-ghost" copy="Submit Order" onClick={() => this.submitOrder(this.state.limits)}
+                status={orderCanBeSubmitted}/>
       </Grid>
     </Grid>;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Button } from '@honeyscience/honey-ui-toolkit';
+import {Button} from '@honeyscience/honey-ui-toolkit';
 import * as actions from '../../../actions/sweetBudgetActions';
 
 const EMPTY_ARRAY = [];
@@ -56,10 +56,8 @@ const styles = {
     fontSize: '14px',
     fontWeight: 500,
   },
-  summaryValue: {
-
-  }
-}
+  summaryValue: {}
+};
 
 
 export class OrderStatus extends React.Component {
@@ -68,82 +66,87 @@ export class OrderStatus extends React.Component {
     selectedShoppingItems: PropTypes.array.isRequired,
     dailyCurrentPrices: PropTypes.object.isRequired,
     updatePurchasePricesForDay: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     day: 0,
-  }
+  };
 
   onResetClick = () => {
-    const { resetPurchasePrices } = this.props.actions;
+    const {resetPurchasePrices} = this.props.actions;
 
-    this.setState({ day: 0 });
+    this.setState({day: 0});
     resetPurchasePrices();
-  }
+  };
 
   onNextDayClick = () => {
-    const { updatePurchasePricesForDay } = this.props.actions;
+    const {updatePurchasePricesForDay} = this.props.actions;
     const nextDay = this.state.day + 1;
 
-    this.setState(() => ({ day: nextDay }));
-    updatePurchasePricesForDay({ day: nextDay });
-  }
+    this.setState(() => ({day: nextDay}));
+    updatePurchasePricesForDay({day: nextDay});
+  };
 
   renderItems = () => {
-    const { selectedShoppingItems, dailyCurrentPrices } = this.props;
+    const {selectedShoppingItems, dailyCurrentPrices} = this.props;
     const currentDay = this.state.day;
 
     return selectedShoppingItems.map((item) => {
-      const { name, category, purchasePrice, goodUntil, limit_price } = item;
+      const {name, category, purchasePrice, goodUntil, limit_price} = item;
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
-      const output = !!purchasePrice ?  "<ProductPurchased purchasePrice={purchasePrice} limitPrice={limit_price}/>" : <div style={ styles.itemRow } key={ category }>
-        <div style={ styles.itemValue }>{ name }</div>
-        <div style={ styles.itemValue }>$&nbsp;{ limit_price || '-' }</div>
-        <div style={ styles.itemValue }>$&nbsp;{ currentPrice }</div>
-        <div style={ styles.itemValue }>{ dynamicGoodUntil > 0 ? `${ dynamicGoodUntil } day(s)` : 'Not checking anymore' }</div>
-      </div>;
+      const output = !!purchasePrice ? "<ProductPurchased purchasePrice={purchasePrice} limitPrice={limit_price}/>" :
+        <div style={styles.itemRow} key={category}>
+          <div style={styles.itemValue}>{name}</div>
+          <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
+          <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
+          <div
+            style={styles.itemValue}>{dynamicGoodUntil > 0 ? `${dynamicGoodUntil} day(s)` : 'Not checking anymore'}</div>
+        </div>;
 
 
       return (
         output
       );
     });
-  }
+  };
 
   render() {
-    const { dailyCurrentPrices, selectedShoppingItems } = this.props;
+    const {dailyCurrentPrices, selectedShoppingItems} = this.props;
     const nextDayButtonStatus = this.state.day === dailyCurrentPrices.toilet_paper.length - 1 ? 'disabled' : '';
     const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.purchasePrice)), 0);
     const totalHoneyGold = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.honeyGold)), 0);
     const totalSavings = totalHoneyGold / 100;
 
+    const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
     return (
-      <div style={ styles.main }>
-        <div style={ styles.buttons }>
-          <div style={ styles.resetButton}><Button buttonType="secondary-ghost" copy="Reset" onClick={ this.onResetClick } /></div>
-          <Button buttonType="secondary-ghost" copy="Next Day" onClick={ this.onNextDayClick } status={ nextDayButtonStatus } />
+      <div style={styles.main}>
+        <div style={styles.buttons}>
+          <div style={styles.resetButton}><Button buttonType="secondary-ghost" copy="Reset"
+                                                  onClick={this.onResetClick}/></div>
+          <Button buttonType="secondary-ghost" copy="Next Day" onClick={this.onNextDayClick}
+                  status={nextDayButtonStatus}/>
         </div>
-        <div style={ styles.titleSection }>
-          <div style={ styles.titleValue }>Product</div>
-          <div style={ styles.titleValue }>Limit Price</div>
-          <div style={ styles.titleValue }>Current Price</div>
-          <div style={ styles.titleValue }>Good Until</div>
+        <div style={styles.titleSection}>
+          <div style={styles.titleValue}>Product</div>
+          <div style={styles.titleValue}>Limit Price</div>
+          <div style={styles.titleValue}>Current Price</div>
+          <div style={styles.titleValue}>Good Until</div>
         </div>
         <div>
-          { this.renderItems() }
+          {this.renderItems()}
         </div>
-        <div style={ styles.summarySection }>
-          <div style={ styles.summaryItem }>
-            <div style={ styles.summaryHeader}>Estimated Price:&nbsp;</div>
-            <div style={ styles.summaryValue}>$&nbsp;{ estimatedPrice }</div>
+        <div style={styles.summarySection}>
+          <div style={styles.summaryItem}>
+            <div style={styles.summaryHeader}>Estimated Price:&nbsp;</div>
+            <div style={styles.summaryValue}>$&nbsp;{estimatedPrice}</div>
           </div>
-          <div style={ styles.summaryItem } />
-          <div style={ styles.summaryItem } />
-          <div style={ styles.summaryItem }>
-            <div style={ styles.summaryHeader}>Total Savings:&nbsp;</div>
-            <div style={ styles.summaryValue}>$&nbsp;{ totalSavings }</div>
+          <div style={styles.summaryItem}/>
+          <div style={styles.summaryItem}/>
+          <div style={styles.summaryItem}>
+            <div style={styles.summaryHeader}>Total Savings:&nbsp;</div>
+            <div style={styles.summaryValue}>$&nbsp;{totalSavings}</div>
           </div>
         </div>
       </div>
