@@ -30,7 +30,7 @@ export class CurateShoppingList extends React.Component {
 
   submitOrder = (limitOrders) => {
     this.props.actions.submitList(limitOrders);
-    browserHistory.push('/shopping-list-status');
+    window.location.href="/shopping-list-status";
   };
 
   render() {
@@ -75,7 +75,7 @@ export class CurateShoppingList extends React.Component {
             item={item}
             essentialItems={this.props.essentialItems}
             changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
-            itemPrice={_.get(this.state, item.category, null)} blacklistProduct={this.blacklistProduct} />
+            itemPrice={_.get(this.state.limits, item.category, null)} blacklistProduct={this.blacklistProduct} />
           )}
 
           <Grid item xs={8}/>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
@@ -13,8 +12,7 @@ import blacklistIcon from '../../../assets/blacklist-icon.png';
 
 
 export class ShoppingItemRow extends React.Component {
-  propTypes = {
-    actions: PropTypes.object.isRequired,
+  static propTypes = {
     item: PropTypes.object.isRequired,
     essentialItems: PropTypes.object,
     itemPrice: PropTypes.number,
