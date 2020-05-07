@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Button} from '@honeyscience/honey-ui-toolkit';
 import * as actions from '../../../actions/sweetBudgetActions';
+import { ProductPurchased } from './ProductPurchased';
 
 const EMPTY_ARRAY = [];
 const EMPTY_OBJECT = {};
@@ -35,7 +36,7 @@ const styles = {
     fontWeight: 600,
   },
   titleValue: {
-    width: '25%',
+    width: '20%',
   },
   itemRow: {
     display: 'flex',
@@ -91,14 +92,18 @@ export class OrderStatus extends React.Component {
     const {selectedShoppingItems, dailyCurrentPrices} = this.props;
     const currentDay = this.state.day;
 
-    return selectedShoppingItems.map((item) => {
+    const orderedItems = _.sortBy(selectedShoppingItems, item => !!item.purchasePrice);
+
+
+    return orderedItems.map((item) => {
       const {name, category, purchasePrice, goodUntil, limit_price} = item;
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
-      const output = !!purchasePrice ? "<ProductPurchased purchasePrice={purchasePrice} limitPrice={limit_price}/>" :
+      const output = !!purchasePrice ? <ProductPurchased item={item} purchasePrice={purchasePrice} limitPrice={limit_price}/> :
         <div style={styles.itemRow} key={category}>
           <div style={styles.itemValue}>{name}</div>
+          <div style={styles.itemValue}>{item.quantity}</div>
           <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
           <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
           <div
@@ -115,9 +120,11 @@ export class OrderStatus extends React.Component {
   render() {
     const {dailyCurrentPrices, selectedShoppingItems} = this.props;
     const nextDayButtonStatus = this.state.day === dailyCurrentPrices.toilet_paper.length - 1 ? 'disabled' : '';
-    const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.purchasePrice)), 0);
-    const totalHoneyGold = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.honeyGold)), 0);
-    const totalSavings = totalHoneyGold / 100;
+    const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.limit_price)), 0).toFixed(2);
+
+    const totalSaved = selectedShoppingItems.filter(item => !!item.purchasePrice).reduce((acc, item) => acc + ((item.limit_price - item.purchasePrice) * item.quantity), 0);
+    const totalSpent = estimatedPrice - totalSaved;
+    const bonusGold = totalSpent * .05 * 100; // gold is represented in pennies
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
     return (
@@ -130,6 +137,7 @@ export class OrderStatus extends React.Component {
         </div>
         <div style={styles.titleSection}>
           <div style={styles.titleValue}>Product</div>
+          <div style={styles.titleValue}>Quantity</div>
           <div style={styles.titleValue}>Limit Price</div>
           <div style={styles.titleValue}>Current Price</div>
           <div style={styles.titleValue}>Good Until</div>
@@ -142,11 +150,18 @@ export class OrderStatus extends React.Component {
             <div style={styles.summaryHeader}>Estimated Price:&nbsp;</div>
             <div style={styles.summaryValue}>$&nbsp;{estimatedPrice}</div>
           </div>
-          <div style={styles.summaryItem}/>
-          <div style={styles.summaryItem}/>
+          <div style={styles.summaryItem}>
+            <div style={styles.summaryHeader}>Amount Spent:&nbsp;</div>
+            <div style={styles.summaryValue}>$&nbsp;{totalSpent.toFixed(2)}</div>
+          </div>
+
+          <div style={styles.summaryItem}>
+            <div style={styles.summaryHeader}>Bonus Gold (5%):&nbsp;</div>
+            <div style={styles.summaryValue}>&nbsp;{bonusGold.toFixed(2)} Honey Gold</div>
+          </div>
           <div style={styles.summaryItem}>
             <div style={styles.summaryHeader}>Total Savings:&nbsp;</div>
-            <div style={styles.summaryValue}>$&nbsp;{totalSavings}</div>
+            <div style={styles.summaryValue}>$&nbsp;{totalSaved.toFixed(2)}</div>
           </div>
         </div>
       </div>
