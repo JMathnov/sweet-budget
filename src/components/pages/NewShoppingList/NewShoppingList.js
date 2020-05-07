@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
-import CategoryItem from './CategoryItem';
+import CategoryList from './CategoryList';
 import * as actions from '../../../actions/sweetBudgetActions';
 
 const styles = theme => ({
@@ -47,82 +47,94 @@ const styles = theme => ({
     height: 36
   },
   buttonBar: {
-    display: "flex"
+    display: "flex",
   },
 });
 
-export class NewShoppingList extends React.Component {
-  // saveFuelSavings = () => {
-  //   this.props.actions.saveFuelSavings(this.props.fuelSavings);
-  // };
+const ShoppingItemRow = ({item, adjust}) => (
+  <div>
+    <Button
+    variant="outlined"
+    color="primary"
+    onClick={() => adjust("+", item)}>+</Button>
+    <Button
+    variant="outlined"
+    color="primary"
+    onClick={() => adjust("-", item)}>-</Button>
+    <div>x{item.quantity}</div>
+    <div>{item.name}</div>
+  </div>
+)
 
-  // calculateFuelSavings = e => {
-  //   this.props.actions.calculateFuelSavings(this.props.fuelSavings, e.target.name, e.target.value);
-  // };
+export class NewShoppingList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  adjustQauntity = (sign, item) => {
+    console.log("Adjust Quantity")
+  }
+
+  addItemToCart = (item) => {
+    const shoppingListItem = {
+      ...item,
+      quantity: 1,
+      limit_price:  null,
+      goodUntil: null,
+      purchasePrice: null,
+      honeyGold: null
+    };
+
+    this.props.actions.addProductToSoppingList(shoppingListItem);
+  }
+
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
-          <Grid spacing={1} justify="center" container className={classes.grid}>
-            <Grid item md={9}>
-              <Paper className={classes.paper} style={{ position: "relative" }}>
-                  <Typography variant="h5" gutterBottom>
-                    Shop Essential Items
-                  </Typography>
-                  <Typography variant="body2">
-                    Select the product categories for your budget
-                  </Typography>
-                  <Grid container spacing={2} justify="center" className={classes.leftPanel}>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                    <Grid item md>
-                      <CategoryItem />
-                    </Grid>
-                  </Grid>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={3} className={classes.grid3}>
-              <Paper className={classes.paper} style={{ position: "relative" }}>
-                <Typography variant="subtitle1" gutterBottom>
-                  Shopping List
+        <Grid container spacing={0} justify="center" className={classes.grid}>
+          <Grid item md={9}>
+            <Paper className={classes.paper} style={{ position: "relative" }}>
+                <Typography variant="h5" gutterBottom>
+                  Shop Essential Items
                 </Typography>
-                <Grid container spacing={2} justify="center" className={classes.rightPanel}>
+                <Typography variant="body2">
+                  Select product categories for your budget
+                </Typography>
+                <CategoryList items={this.props.product_category_list} onClick={this.addItemToCart} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={3} className={classes.grid3}>
+            <Paper className={classes.paper} style={{ position: "relative" }}>
+              <Grid container justify="center" className={classes.rightPanel}>
+                <Typography variant="h5" gutterBottom>
+                Shopping List
+                </Typography>
+                <Grid container justify="center">
+                  {this.props.shopping_list.items.map((item) =>
+                    <Grid item>
+                      <ShoppingItemRow item={item} adjust={this.adjustQauntity}></ShoppingItemRow>
+                    </Grid>
+                  )}
+                </Grid>
+                <Grid item>
                   <div className={classes.buttonBar}>
                     <Button
-                      to={{ pathname: "/dashboard", search: `?type=save` }}
+                      to={{ pathname: "/curate-shopping-list" }}
                       component={Link}
                       variant="outlined"
-                      className={classes.actionButtom}
-                    >
+                      color="primary"
+                      className={classes.actionButtom}>
                       Submit
                     </Button>
                   </div>
                 </Grid>
-              </Paper>
-            </Grid>
-        </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+      </Grid>
     </div>
     );
   }
@@ -130,11 +142,13 @@ export class NewShoppingList extends React.Component {
 
 NewShoppingList.propTypes = {
   actions: PropTypes.object.isRequired,
+  product_category_list: PropTypes.object.isRequired,
   shopping_list: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
+    product_category_list: state.shoppingList.product_category_list,
     shopping_list: state.shoppingList.shopping_list
   };
 }
