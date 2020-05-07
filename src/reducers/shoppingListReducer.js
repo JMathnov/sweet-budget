@@ -4,6 +4,27 @@ import objectAssign from 'object-assign';
 import initialState from './initialState';
 import * as actionTypes from '../constants/actionTypes';
 
+function addProductToShoppingList(action, state) {
+  const { shopping_list: shoppingList } = state;
+  const { items: shoppingListItems } = shoppingList;
+
+  shoppingListItems.push(action.product);
+
+  const newState = Object.assign({}, state, {
+    shopping_list: Object.assign({}, state.shopping_list, {
+      items: shoppingListItems,
+    }),
+  });
+
+  return newState;
+}
+
+// function adjustProductQuautity(action, state) {
+//   const { shopping_list: shoppingList } = state;
+//   const { items: shoppingListItems } = shoppingList;
+
+//   const item
+// }
 
 function updatePurchasePrice(action, state) {
   const { currentPriceIndex } = action;
@@ -73,6 +94,12 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
           [action.category]: newCategory,
         },
       };
+
+    case actionTypes.ADD_PRODUCT_TO_SHOPPING_LIST:
+      return addProductToShoppingList(action, state);
+
+    // case actionTypes.ADJUST_QAUNTITY:
+    //   return adjustProductQuautity(action, state);
 
     case actionTypes.SUBMIT_LIST:
       // save the shopping list somewhere

@@ -2757,19 +2757,19 @@ export default {
         }
       ]
     },
+    product_category_list: [
+      {name: 'Toilet Paper', category: 'toilet_paper'},
+      {name: 'Latex Gloves', category: 'gloves'},
+      {name: 'Face Masks', category: 'mask'},
+      {name: 'Hand Soap', category: 'soap'},
+      {name: 'Toothpaste', category: 'toothpaste'},
+      {name: 'Sanitizing Wipes', category: 'sanitizer_wipes'},
+      {name: 'Hand Sanitizer', category: 'hand_sanitizer'},
+      {name: 'Tissues', category: 'tissues'},
+      {name: 'Napkins', category: 'napkins'}
+    ],
     shopping_list: {
-      items: [
-        {name: 'Toilet Paper', category: 'toilet_paper', quantity: 5, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
-        {name: 'Latex Gloves', category: 'gloves', quantity: 2, limit_price:  null, goodUntil: 1, purchasePrice: null, honeyGold: null},
-        {name: 'Face Masks', category: 'mask', quantity: 1, limit_price:  null, goodUntil: 2, purchasePrice: null, honeyGold: null},
-        {name: 'Hand Soap', category: 'soap', quantity: 5, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
-        {name: 'Toothpaste', category: 'toothpaste', quantity: 2, limit_price:  null, goodUntil: 1, purchasePrice: null, honeyGold: null},
-        {name: 'Sanitizing Wipes', category: 'sanitizer_wipes', quantity: 1, limit_price:  null, goodUntil: 2, purchasePrice: null, honeyGold: null},
-        {name: 'Hand Sanitizer', category: 'hand_sanitizer', quantity: 5, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
-        {name: 'Tissues', category: 'tissues', quantity: 2, limit_price:  null, goodUntil: 1, purchasePrice: null, honeyGold: null},
-        {name: 'Napkins', category: 'napkins', quantity: 1, limit_price:  null, goodUntil: 2, purchasePrice: null, honeyGold: null},
-        {name: 'Paper Towels', category: 'paper_towels', quantity: 5, limit_price:  null, goodUntil: 3, purchasePrice: null, honeyGold: null},
-      ]
+      items: []
     },
     dailyCurrentPrices: {
       toilet_paper: [5.23, 5.25, 5.01, 5.11, 5.8],

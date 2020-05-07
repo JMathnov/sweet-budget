@@ -9,6 +9,20 @@ export function submitList(limitPrices) {
   }
 }
 
+export function addProductToSoppingList(product) {
+  return {
+    type: types.ADD_PRODUCT_TO_SHOPPING_LIST,
+    product
+  };
+}
+
+// export function adjustProductQuantity(product) {
+//   return {
+//     type: types.ADJUST_QAUNTITY,
+//     product
+//   }
+// }
+
 export function blacklistProduct(product, category) {
   return {
     type: types.BLACKLIST_PRODUCT,
