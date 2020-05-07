@@ -2,7 +2,7 @@ export default {
   sweetBudget: {
     blacklistedProducts: [],
     essentialItems: {
-      "toilet_paper":[
+      toilet_paper:[
         {
           "price_current":"1669",
           "title":"Scott ComfortPlus Toilet Paper, Double Roll, 24 Rolls, Bath Tissue (47620)",
@@ -298,7 +298,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "gloves":[
+      gloves:[
         {
           "price_current":"349",
           "title":"Reusable Double Pack Latex Gloves - M - Smartly™",
@@ -480,7 +480,7 @@ export default {
           "parent_id":"30X5IREPSY5X"
         }
       ],
-      "mask":[
+      mask:[
         {
           "price_current":"1299",
           "title":"White Unicorn - PM2.5 Dust Mask for Men Women - Washable and Reusable Face Protection - for Medical/Cleaning/Surgical/Pollen/Allergens/Painting",
@@ -693,7 +693,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "soap":[
+      soap:[
         {
           "price_current":"650",
           "title":"Eucalyptus Mint Gentle Foaming Hand Soap",
@@ -971,7 +971,7 @@ export default {
           "parent_id":"B081L1XD9W"
         }
       ],
-      "toothpaste":[
+      toothpaste:[
         {
           "price_current":"840",
           "title":"Colgate Optic White Sparkling White Whitening Toothpaste",
@@ -1451,7 +1451,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "sanitizer_wipes":[
+      sanitizer_wipes:[
         {
           "price_current":"1399",
           "title":"Care Touch Alcohol Free Hand Sanitizer Wipes - 10 Travel Packs of 20 Count Each - Antibacterial Moisturizing Sanitizing Wipes with Vitamin E Aloe for Baby to Adult 200 Wipes Total",
@@ -1552,7 +1552,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "hand_sanitizer":[
+      hand_sanitizer:[
         {
           "price_current":"599",
           "title":"Babyganics Alcohol-Free Foaming Hand Sanitizer - 1.69 fl oz/2pk",
@@ -1850,7 +1850,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "tissues":[
+      tissues:[
         {
           "price_current":"159",
           "title":"Kleenex Ultra Soft Facial Tissues - 110ct",
@@ -2060,7 +2060,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "napkins":[
+      napkins:[
         {
           "price_current":"1196",
           "title":"Fiddlehead Napkin Rings, Set of 4",
@@ -2407,7 +2407,7 @@ export default {
           "blacklisted":true
         }
       ],
-      "paper_towels":[
+      paper_towels:[
         {
           "price_current":"500",
           "title":"Scott Paper Towels Choose-A-Sheet Regular Rolls White",
@@ -2774,7 +2774,14 @@ export default {
     dailyCurrentPrices: {
       toilet_paper: [5.23, 5.25, 5.01, 5.11, 5.8],
       gloves: [2.23, 2.25, 2.01, 2.11, 2.8],
-      soap: [1.23, 1.25, 1.01, 1.11, 1.8],
+      mask: [1.23, 1.25, 1.01, 1.11, 1.8],
+      soap: [5.23, 5.25, 5.01, 5.11, 5.8],
+      toothpaste: [2.23, 2.25, 2.01, 2.11, 2.8],
+      sanitizer_wipes: [1.23, 1.25, 1.01, 1.11, 1.8],
+      hand_sanitizer: [5.23, 5.25, 5.01, 5.11, 5.8],
+      tissues: [2.23, 2.25, 2.01, 2.11, 2.8],
+      napkins: [1.23, 1.25, 1.01, 1.11, 1.8],
+      paper_towels: [5.23, 5.25, 5.01, 5.11, 5.8]
     },
   }
 };

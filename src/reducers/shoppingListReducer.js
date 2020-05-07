@@ -104,9 +104,17 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
     case actionTypes.SUBMIT_LIST:
       // save the shopping list somewhere
 
+      const currentListItems = JSON.parse(JSON.stringify(state.shopping_list.items)); // Make a copy of the instance so we dont get pointer problems.
+      let listItemsMap = {};
+      currentListItems.map(shoppingItem => listItemsMap[shoppingItem.category] = shoppingItem);
+      _.map(action.limitPrices, (value, category) => listItemsMap[category]['limit_price'] = value);
+
       return {
         ...state,
-        shopping_list: action.shopping_list
+        shopping_list: {
+          ...state.shopping_list,
+          items: Object.values(listItemsMap),
+        },
       };
 
     case actionTypes.PURCHASE_LIST:

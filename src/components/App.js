@@ -1,10 +1,11 @@
 /* eslint-disable import/no-named-as-default */
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, useHistory, Link } from "react-router-dom";
 
 import OrderStatus from "./pages/OrderStatus/OrderStatus.js";
 import CurateShoppingList from "./pages/CurateShoppingList/CurateShoppingList.js";
 import ShoppingComplete from "./pages/ShoppingComplete/ShoppingComplete.js";
 import NewShoppingList from "./pages/NewShoppingList/NewShoppingList.js";
+import {ShippingAndPayment} from "./pages/ShippingAndPayment/ShippingAndPayment";
 import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
@@ -66,10 +67,12 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage} />
             <Route path="/new-shopping-list" component={NewShoppingList} />
             <Route path="/curate-shopping-list" component={CurateShoppingList} />
+            <Route path="/shipping-and-payment" component={ShippingAndPayment} />
             <Route path="/shopping-list-status" component={OrderStatus} />
             <Route path="/order-complete" component={ShoppingComplete} />
             <Route component={NotFoundPage} />
           </Switch>
+
           <HoneyFooter />
         </ThemeProvider>
       </div>
