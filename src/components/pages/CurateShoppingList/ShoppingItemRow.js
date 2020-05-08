@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import {median} from 'mathjs';
+import Button from '@material-ui/core/Button'
 import Slider from '@material-ui/core/Slider';
+
+import BlacklistDialog from './BlacklistDialog';
+
 import Popup from "reactjs-popup";
 import blacklistIcon from '../../../assets/blacklist-icon.png';
 
@@ -39,15 +43,20 @@ export class ShoppingItemRow extends React.Component {
     const allowedItems = this.getAllowedItems(this.props.item);
     const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
-      <Grid container spacing={1}>
+      <Grid container spacing={1} alignItems={'center'}>
 
+        <Grid item xs={1}>
+          <Button variant="text"
+                  color="primary"
+                  size="small"
+                  onClick={() => this.props.openDialog()}>
+            {this.props.item.name}
+          </Button>
+        </Grid>
 
-        <Popup trigger={<Grid item xs={1}
-                              modal
-                              closeOnDocumentClick
-                              className={'category_label'}>
-          {this.props.item.name}
-        </Grid>} position={"center center"}>
+        <BlacklistDialog open={this.props.blacklistDialog}/>
+
+        {/* <Popup position={"center center"}>
           <Grid container spacing={1}>
             {allowedItems.map(product => {
               return (<Grid container spacing={1} className={'popup'}>
@@ -70,7 +79,7 @@ export class ShoppingItemRow extends React.Component {
               </Grid>)
             })}
           </Grid>
-        </Popup>
+        </Popup> */}
 
         <Grid item xs={1}>
           {this.props.item.quantity}

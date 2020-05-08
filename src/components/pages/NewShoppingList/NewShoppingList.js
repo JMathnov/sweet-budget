@@ -38,7 +38,7 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
-    textAlign: "left",
+    textAlign: "center",
     color: theme.palette.text.secondary
   },
   actionButtom: {
@@ -46,9 +46,6 @@ const styles = theme => ({
     margin: theme.spacing(1),
     width: 152,
     height: 36
-  },
-  buttonBar: {
-    display: "flex",
   },
 });
 
@@ -63,7 +60,7 @@ export class NewShoppingList extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -79,31 +76,27 @@ export class NewShoppingList extends React.Component {
                 <CategoryList items={this.props.product_category_list} onClick={this.adjustCart} />
             </Paper>
           </Grid>
-          <Grid item md={3} className={classes.grid3}>
+          <Grid item md={3} className={classes.rightPanel}>
             <Paper className={classes.paper} style={{ position: "relative" }}>
-              <Grid container justify="center" className={classes.rightPanel}>
-                <Typography variant="h5" gutterBottom>
-                  Shopping List
-                </Typography>
-                <Grid container justify="center">
-                  {this.props.shopping_list.items.map((item) =>
-                    <Grid item xs={12}>
-                      <ShoppingItemRow item={item} adjust={this.adjustCart}></ShoppingItemRow>
-                    </Grid>
-                  )}
-                </Grid>
-                <Grid item>
-                  <div className={classes.buttonBar}>
-                    <Button
-                      to={{pathname: "/curate-shopping-list"}}
-                      component={Link}
-                      variant="outlined"
-                      color="primary"
-                      className={classes.actionButtom} disabled={this.props.shopping_list.items.length <= 0}>
-                      Submit
-                    </Button>
-                  </div>
-                </Grid>
+              <Typography variant="h5" gutterBottom>
+                Shopping List
+              </Typography>
+              <Grid container justify="center">
+                {this.props.shopping_list.items.map((item) =>
+                  <Grid item xs={12}>
+                    <ShoppingItemRow item={item} adjust={this.adjustCart}></ShoppingItemRow>
+                  </Grid>
+                )}
+              </Grid>
+              <Grid item justify="center">
+                <Button
+                  to={{pathname: "/curate-shopping-list"}}
+                  component={Link}
+                  variant="outlined"
+                  color="primary"
+                  className={classes.actionButtom} disabled={this.props.shopping_list.items.length <= 0}>
+                  Submit
+                </Button>
               </Grid>
             </Paper>
           </Grid>
