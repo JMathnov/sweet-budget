@@ -13,12 +13,17 @@ import Typography from "@material-ui/core/Typography";
 import CategoryList from './CategoryList';
 import ShoppingItemRow from './ShoppingItemRow';
 import * as actions from '../../../actions/sweetBudgetActions';
+import assets from './assets'
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     paddingTop: 25,
     paddingBottom: 25
+  },
+  bolder: {
+    color: '#292a2a',
+    fontWeight: 600
   },
   grid: {
     width: '100%',
@@ -47,6 +52,11 @@ const styles = theme => ({
     width: 152,
     height: 36
   },
+  maxHeightWrapper: {
+    maxHeight: 715,
+    overflow: 'auto',
+    width: 284
+  }
 });
 
 export class NewShoppingList extends React.Component {
@@ -62,32 +72,36 @@ export class NewShoppingList extends React.Component {
   render() {
     const { classes } = this.props;
 
+    console.log(this.props.product_category_list.map(u => u.category))
+
     return (
       <div className={classes.root}>
         <Grid container spacing={0} justify="center" className={classes.grid}>
           <Grid item md={9}>
             <Paper className={classes.paper} style={{ position: "relative" }}>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h4" gutterBottom className={classes.bolder}>
                   Shop Essential Items
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="body1">
                   Select product categories for your budget
                 </Typography>
-                <CategoryList items={this.props.product_category_list} onClick={this.adjustCart} />
+                <CategoryList items={this.props.product_category_list} assets={assets} onClick={this.adjustCart} />
             </Paper>
           </Grid>
           <Grid item md={3} className={classes.rightPanel}>
             <Paper className={classes.paper} style={{ position: "relative" }}>
-              <Typography variant="h5" gutterBottom>
-                Shopping List
-              </Typography>
-              <Grid container justify="center">
-                {this.props.shopping_list.items.map((item) =>
-                  <Grid item xs={12}>
-                    <ShoppingItemRow item={item} adjust={this.adjustCart}></ShoppingItemRow>
-                  </Grid>
-                )}
-              </Grid>
+                <Typography variant="h5" gutterBottom>
+                  Shopping List
+                </Typography>
+              <div className={classes.maxHeightWrapper}>
+                <Grid container justify="center">
+                  {this.props.shopping_list.items.map((item) =>
+                    <Grid item xs={12}>
+                      <ShoppingItemRow item={item} assets={assets} adjust={this.adjustCart}></ShoppingItemRow>
+                    </Grid>
+                  )}
+                </Grid>
+              </div>
               <Grid item justify="center">
                 <Button
                   to={{pathname: "/curate-shopping-list"}}

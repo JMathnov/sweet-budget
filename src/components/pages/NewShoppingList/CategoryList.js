@@ -15,7 +15,6 @@ const styles = theme => ({
   },
   gridList: {
     width: '100%',
-    height: 800,
   },
   actionButtom: {
     textTransform: "uppercase",
@@ -25,10 +24,16 @@ const styles = theme => ({
   },
   whiteText: {
     color: "white"
-  }
+  },
+  image: {
+    width: 75,
+    height: 75,
+    margin: '16px auto',
+    objectFit: 'contain'
+  },
 });
 
-const CategoryList = ({classes, items, onClick}) => (
+const CategoryList = ({classes, items, assets, onClick}) => (
   <div>
     <Grid container
     spacing={2}
@@ -43,9 +48,7 @@ const CategoryList = ({classes, items, onClick}) => (
               gutterBottom>
                 {item.name}
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                A first title style <br /> with two lines
-              </Typography>
+              <img className={classes.image} src={assets[item.category]}/>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button color="primary"

@@ -57,7 +57,7 @@ export class ShoppingItemRow extends React.Component {
     const allowedItems = this.getAllowedItems(this.props.item);
     const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
-      <Grid container spacing={1} alignItems={'center'}>
+      <Grid container spacing={1} alignItems={'center'} style={{margin: '28px 0'}}>
 
         <Grid item xs={1}>
           <Button variant="text"
