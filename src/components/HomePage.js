@@ -4,7 +4,7 @@ import {Button} from '@honeyscience/honey-ui-toolkit';
 
 const styles = {
   wrapper: {
-    padding: '30px 160px',
+    padding: '30px 160px 0',
     marginBottom: 100
   },
   h1: {
