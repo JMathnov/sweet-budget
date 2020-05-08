@@ -12,6 +12,13 @@ import * as feedingAmerica from '../../../assets/feeding-america.jpg';
 import * as shelter from '../../../assets/shelter.png';
 import * as sierraClub from '../../../assets/sierra-club.png';
 
+import * as lorientable from '../../../assets/lorientable.jpg';
+import * as highTidePoke from '../../../assets/high-tide-poke.jpg';
+import * as kalzbrgr from '../../../assets/kalzbrgr.png';
+import * as ounceOfPrevention from '../../../assets/ounce-of-prevention.jpg';
+import * as permian from '../../../assets/permian.jpg';
+import * as ginos from '../../../assets/ginos.jpg';
+
 const styles = {
   main: {
     minWidth: '800px',
@@ -65,7 +72,7 @@ export class ShoppingComplete extends React.Component {
     };
   }
 
-  propTypes = {
+  static propTypes = {
     actions: PropTypes.object.isRequired,
     order: PropTypes.object.isRequired
   };
@@ -75,10 +82,28 @@ export class ShoppingComplete extends React.Component {
   }
 
   render() {
-    const {order} = this.props;
-    const {totalSaved, bonusGold} = order;
+    const {totalSaved, bonusGold} = this.props.order;
 
-
+    const restaurantList = <Grid container spacing={1}>
+      <Grid item xs={4}>
+        <img src={lorientable} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+      <Grid item xs={4}>
+        <img src={highTidePoke} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+      <Grid item xs={4}>
+        <img src={kalzbrgr} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+      <Grid item xs={4}>
+        <img src={ounceOfPrevention} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+      <Grid item xs={4}>
+        <img src={permian} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+      <Grid item xs={4}>
+        <img src={ginos} style={{height: '60px', width: '60px'}}/>
+      </Grid>
+    </Grid>;
 
     const charityList = <Grid container spacing={1}>
       <Grid item xs={4}>
@@ -101,15 +126,12 @@ export class ShoppingComplete extends React.Component {
       </Grid>
     </Grid>;
 
-
-
-
     return (
       <div className={styles.main}>
-        You saved $ {totalSaved}! Here's an extra {bonusGold} Honey Gold to get your next shopping list started!
+        You saved ${totalSaved.toFixed(2)} by using Honey's Sweet Budgets! <br/><br/>Here's an extra {bonusGold.toFixed(0)} Honey Gold to get your next shopping list started!
 
 
-        Choose what you would like to do with your savings
+        What would you like to do with your savings?
         <div style={styles.itemRow}>
           <div style={styles.optionButton} onClick={() => this.selectOption('save')}>
             Apply it towards my next Shopping List
@@ -122,10 +144,8 @@ export class ShoppingComplete extends React.Component {
           </div>
         </div>
 
-
         {this.state.selected === 'charity' ? charityList : null}
-
-
+        {this.state.selected === 'restaurant' ? restaurantList : null}
       </div>
     );
   }
