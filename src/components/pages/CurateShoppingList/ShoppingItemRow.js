@@ -11,12 +11,10 @@ import BlacklistDialog from './BlacklistDialog';
 import Popup from "reactjs-popup";
 import blacklistIcon from '../../../assets/blacklist-icon.png';
 
-
 export class ShoppingItemRow extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     essentialItems: PropTypes.object,
-    itemPrice: PropTypes.number,
     changePrice: PropTypes.func.isRequired,
     blacklistProduct: PropTypes.func.isRequired,
   };
@@ -87,7 +85,7 @@ export class ShoppingItemRow extends React.Component {
           {this.props.item.quantity}
         </Grid>
         <Grid item xs={1}>
-          {this.props.itemPrice ? "$" + this.props.itemPrice : "N/a"}
+          {this.props.item.limit_price ? "$" + this.props.item.limit_price : "N/a"}
         </Grid>
 
         <Grid item xs={9}>
@@ -95,7 +93,7 @@ export class ShoppingItemRow extends React.Component {
             defaultValue={priceProfile.median}
             getAriaValueText={(item) => "$" + item}
             aria-labelledby="discrete-slider-custom"
-            step={0.01}
+            step={0.05}
             min={priceProfile.cheapest * .75}
             max={priceProfile.median * 1.25}
             valueLabelDisplay="auto"

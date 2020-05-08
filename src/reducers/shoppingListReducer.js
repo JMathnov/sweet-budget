@@ -44,10 +44,14 @@ function updatePurchasePrice(action, state) {
   const { items: shoppingListItems } = shoppingList;
   const newShoppingListItems = shoppingListItems.map((item) => {
     const currentDayCategoryPrice = dailyCurrentPrices[item.category][currentPriceIndex];
-    // Current Price is too high so no changes.
-    if (currentDayCategoryPrice > item.limit_price) { return item; }
 
-    // Good time to purchase. Update new purchasePrice
+    // We do not make a purchase if:
+    // 1 - Item is is already purchased
+    // 2 - We stopped looking for that item
+    // 3 - Current price is higher than required price (i.e. limit price)
+    if (item.purchasePrice !== null || item.goodUntil === null || currentDayCategoryPrice > item.limit_price) { return item; }
+
+    // Good time to purchase. Update new purchasePrice and Honey Gold
     return Object.assign({}, item, {
       purchasePrice: currentDayCategoryPrice,
       honeyGold: currentDayCategoryPrice * 5, // Assign 5% Honey Gold for every purchase.
@@ -152,6 +156,15 @@ export default function shoppingListReducer(state = initialState.sweetBudget, ac
 
     case actionTypes.RESET_PURCHASE_PRICE:
       return resetPurchasePrices(action, state);
+
+    case actionTypes.ORDER_COMPLETED:
+      return {
+        ...state,
+        order: {
+          totalSaved: action.totalSaved,
+          bonusGold: action.bonusGold
+        }
+      };
 
     default:
       return state;

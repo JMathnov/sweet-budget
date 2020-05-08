@@ -88,6 +88,13 @@ export class OrderStatus extends React.Component {
     updatePurchasePricesForDay({day: nextDay});
   };
 
+  orderCompletedEverythingPurchased = (totalSaved, bonusGold) => {
+    const {orderCompleted} = this.props.actions;
+
+    orderCompleted({totalSaved, bonusGold});
+    this.props.history.push("/order-complete")
+  };
+
   renderItems = () => {
     const {selectedShoppingItems, dailyCurrentPrices} = this.props;
     const currentDay = this.state.day;
@@ -100,19 +107,22 @@ export class OrderStatus extends React.Component {
       const currentPrice = dailyCurrentPrices[category][currentDay];
       const dynamicGoodUntil = Math.max(0, goodUntil - this.state.day);
 
-      const output = !!purchasePrice ? <ProductPurchased item={item} purchasePrice={purchasePrice} limitPrice={limit_price}/> :
-        <div style={styles.itemRow} key={category}>
-          <div style={styles.itemValue}>{name}</div>
-          <div style={styles.itemValue}>{item.quantity}</div>
-          <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
-          <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
-          <div
-            style={styles.itemValue}>{dynamicGoodUntil > 0 ? `${dynamicGoodUntil} day(s)` : 'Not checking anymore'}</div>
-        </div>;
-
+      const purchasedProduct = !!purchasePrice && <ProductPurchased item={item} purchasePrice={purchasePrice} limitPrice={limit_price}/>;
 
       return (
-        output
+        <>
+          <div style={styles.itemRow} key={`${category}_row`}>
+            <div style={styles.itemValue}>{name}</div>
+            <div style={styles.itemValue}>{item.quantity}</div>
+            <div style={styles.itemValue}>$&nbsp;{limit_price || '-'}</div>
+            <div style={styles.itemValue}>$&nbsp;{currentPrice}</div>
+            <div
+              style={styles.itemValue}>{dynamicGoodUntil > 0 ? `${dynamicGoodUntil} day(s)` : 'Not checking anymore'}</div>
+          </div>
+          <div key={`${category}_purchase_msg`}>
+            { purchasedProduct }
+          </div>
+        </>
       );
     });
   };
@@ -123,13 +133,15 @@ export class OrderStatus extends React.Component {
     const estimatedPrice = selectedShoppingItems.reduce((acc, item) => (acc + (item.quantity * item.limit_price)), 0).toFixed(2);
 
     const totalSaved = selectedShoppingItems.filter(item => !!item.purchasePrice).reduce((acc, item) => acc + ((item.limit_price - item.purchasePrice) * item.quantity), 0);
-    const totalSpent = estimatedPrice - totalSaved;
+    const totalSpent = selectedShoppingItems.filter(item => !!item.purchasePrice).reduce((acc, item) => acc + (item.purchasePrice * item.quantity), 0);
     const bonusGold = totalSpent * .05 * 100; // gold is represented in pennies
 
     const allPurchased = selectedShoppingItems.filter(item => !!item.purchasePrice).length === selectedShoppingItems.length;
     if(allPurchased) {
-      this.props.history.push("/order-complete")
+      console.log('All Items are purchased. Move to Order Complete.');
+      this.orderCompletedEverythingPurchased(totalSaved, bonusGold);
     }
+
     return (
       <div style={styles.main}>
         <div style={styles.buttons}>
