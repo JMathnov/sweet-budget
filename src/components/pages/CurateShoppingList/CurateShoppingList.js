@@ -28,6 +28,7 @@ export class CurateShoppingList extends React.Component {
     super(props);
     this.state = {
       limits: [],
+      blacklistDialog: false,
     };
   }
 
@@ -49,14 +50,19 @@ export class CurateShoppingList extends React.Component {
     this.props.history.push("/shipping-and-payment");
   };
 
+  openDialog = event => {
+    this.setState({ blacklistDialog: true });
+  };
+
   render() {
     const { classes } = this.props;
     const orderCanBeSubmitted = Object.keys(this.state.limits).length === this.props.shopping_list.items.length ? '' : 'disabled';
 
     const output =
     <div className={classes.root}>
-      <Paper className={classes.paper} style={{ position: "relative" }}>
+      <Paper className={classes.paper}>
         <Grid container spacing={1} className={'curate'}>
+
           <Grid item xs={1}/>
           <Grid item xs={1}>Qty</Grid>
           <Grid item xs={1}>Your Limit</Grid>
@@ -89,20 +95,29 @@ export class CurateShoppingList extends React.Component {
             </svg>
           </Grid>
 
-          {this.props.shopping_list.items.map(item =>
+          <Grid container
+                direction="column"
+                justify="space-between"
+          >
+            <Grid item xs={12}>
+            {this.props.shopping_list.items.map(item =>
             <ShoppingItemRow
               item={item}
               essentialItems={this.props.essentialItems}
               changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
-              itemPrice={_.get(this.state.limits, item.category, null)} blacklistProduct={this.blacklistProduct}/>
-          )}
-
-          <Grid item xs={8}/>
-          <Grid item xs={4}>
-
-            <Button buttonType="secondary-ghost" copy="Submit Order" onClick={() => this.submitOrder(this.state.limits)}
-                    status={orderCanBeSubmitted}/>
+              itemPrice={_.get(this.state.limits, item.category, null)}
+              openDialog={this.openDialog}
+              blacklistDialog={this.state.blacklistDialog}
+              blacklistProduct={this.blacklistProduct}/>
+            )}
+            </Grid>
           </Grid>
+
+          <Grid item xs={12}>
+            <Button buttonType="secondary-ghost" copy="Submit Order" onClick={() => this.submitOrder(this.state.limits)}
+                      status={orderCanBeSubmitted}/>
+          </Grid>
+
         </Grid>
       </Paper>
     </div>;
