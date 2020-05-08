@@ -17,6 +17,22 @@ export class ShoppingItemRow extends React.Component {
     blacklistProduct: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      blacklistDialog: false,
+    };
+  }
+
+  openDialog = event => {
+    this.setState({ blacklistDialog: true });
+  };
+
+  dialogClose = event => {
+    this.setState({ blacklistDialog: false });
+  };
+
+
   getAllowedItems(item) {
     const items = _.get(this.props.essentialItems, item.category, {});
     return _.filter(items, item => !item.blacklisted);
@@ -41,18 +57,23 @@ export class ShoppingItemRow extends React.Component {
     const allowedItems = this.getAllowedItems(this.props.item);
     const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
-      <Grid container spacing={1} alignItems={'center'}>
+      <Grid container spacing={1} alignItems={'center'} style={{margin: '28px 0'}}>
 
         <Grid item xs={1}>
           <Button variant="text"
                   color="primary"
                   size="small"
-                  onClick={() => this.props.openDialog()}>
+                  onClick={() => this.openDialog()}>
             {this.props.item.name}
           </Button>
         </Grid>
 
-        <BlacklistDialog {...this.props} allowedItems={allowedItems}/>
+        {this.state.blacklistDialog ?
+          <BlacklistDialog {...this.props}
+            allowedItems={allowedItems}
+            blacklistDialog={this.state.blacklistDialog}
+            onClose={this.dialogClose}/>
+        : null}
 
         <Grid item xs={1}>
           {this.props.item.quantity}
