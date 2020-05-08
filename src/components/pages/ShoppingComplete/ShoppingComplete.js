@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+
 import withStyles from "@material-ui/styles/withStyles";
 import * as redCross from '../../../assets/red-cross.png';
 import * as doctorsWithoutBorders from '../../../assets/doctors-without-borders.png';
@@ -24,11 +26,26 @@ const styles = {
     minWidth: '800px',
     maxWidth: '1100px',
     minHeight: '400px',
-    paddingTop: '75px',
     paddingBottom: '75px',
     display: 'flex',
     flexDirection: 'column',
-    margin: '30px 130px 30px 130px',
+    margin: '30px 160px',
+  },
+  h1: {
+    color: '#292a2a',
+    margin: '40px 0px',
+    fontSize: '34px',
+  },
+  h2: {
+    fontSize: '24px',
+    color: '#4d4d4d',
+    fontWeight: 400
+  },
+  h3: {
+    marginTop: 32
+  },
+  bold: {
+    fontWeight: 600
   },
   root: {
     flexGrow: 1,
@@ -47,8 +64,10 @@ const styles = {
     display: "flex",
   },
   itemRow: {
-    display: 'flex',
-    margin: '0px 0px 10px 0px',
+    display: 'grid',
+    gridTemplateColumns: 'auto auto auto',
+    gridColumnGap: 24,
+    margin: '8px 0'
   },
   itemValue: {
     border: '1px',
@@ -56,12 +75,48 @@ const styles = {
     width: '33%',
   },
   optionButton: {
-    border: '1px solid',
-    padding: '3%',
-    width: '33%',
+    // border: '1px solid',
+    // padding: '3%',
+    // width: '33%',
+    // cursor: 'pointer',
     cursor: 'pointer',
+    height: '40px',
+    boxShadow: 'none',
+    textShadow: 'none',
+    outline: 'none',
+    padding: '0px 16px',
+    background: 'none',
+    transition: 'all 0.2s ease 0s',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderRadius: '3px',
+    backgroundColor: 'rgb(204, 75, 6)',
+    borderColor: 'rgb(204, 75, 6)'
+  },
+  image: {
+    height: 75,
+    width: 150,
+    objectFit: 'contain'
   }
 };
+
+const restaurantImage = [
+  lorientable,
+  highTidePoke,
+  kalzbrgr,
+  ounceOfPrevention,
+  permian,
+  ginos
+]
+
+const charityImages = [
+  redCross,
+  doctorsWithoutBorders,
+  doctorsForAmerica,
+  feedingAmerica,
+  shelter,
+  sierraClub
+]
 
 export class ShoppingComplete extends React.Component {
   constructor(props) {
@@ -85,67 +140,77 @@ export class ShoppingComplete extends React.Component {
     const {totalSaved, bonusGold} = this.props.order;
 
     const restaurantList = <Grid container spacing={1}>
-      <Grid item xs={4}>
-        <img src={lorientable} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={highTidePoke} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={kalzbrgr} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={ounceOfPrevention} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={permian} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={ginos} style={{height: '60px', width: '60px'}}/>
-      </Grid>
+      {restaurantImage.map(img => 
+        <Grid 
+          item xs={4}   
+          style={{textAlign: 'center', marginBottom: 16}}
+        >
+          <img src={img} style={styles.image}/>
+        </Grid>
+      )}
     </Grid>;
 
     const charityList = <Grid container spacing={1}>
-      <Grid item xs={4}>
-        <img src={redCross} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={doctorsWithoutBorders} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={doctorsForAmerica} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={feedingAmerica} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={shelter} style={{height: '60px', width: '60px'}}/>
-      </Grid>
-      <Grid item xs={4}>
-        <img src={sierraClub} style={{height: '60px', width: '60px'}}/>
-      </Grid>
+      {charityImages.map(img => 
+        <Grid 
+          item xs={4}   
+          style={{textAlign: 'center', marginBottom: 16}}
+        >
+          <img src={img} style={styles.image}/>
+        </Grid>
+      )}
     </Grid>;
 
     return (
-      <div className={styles.main}>
-        You saved ${totalSaved.toFixed(2)} by using Honey's Sweet Budgets! <br/><br/>Here's an extra {bonusGold.toFixed(0)} Honey Gold to get your next shopping list started!
+      <div style={styles.main}>
+        <h1 style={styles.h1}>Order Complete</h1>
 
+        <h2 style={styles.h2}>
+          You saved <span style={styles.bold}>
+            ${totalSaved.toFixed(2)} 
+          </span> by using Honey's Sweet Budgets! 
+        </h2>
+        <h2 style={styles.h2}>
 
-        What would you like to do with your savings?
+          Here's an extra <span style={styles.bold}>
+            {bonusGold.toFixed(0)} 
+          </span> Honey Gold to get your next shopping list started!
+        </h2>
+
+        <h3 style={styles.h3}>
+          What would you like to do with your savings?
+        </h3>
         <div style={styles.itemRow}>
-          <div style={styles.optionButton} onClick={() => this.selectOption('save')}>
+          <Button                   
+            variant={this.state.selected === 'save' ? "contained" :"outlined"}
+            color="primary"  
+            style={{color: this.state.selected === 'save' ? 'white' : '#f57c00' }}
+            onClick={() => this.selectOption('save')}
+          >
             Apply it towards my next Shopping List
-          </div>
-          <div style={styles.optionButton} onClick={() => this.selectOption('charity')}>
+          </Button>
+          <Button                   
+            variant={this.state.selected === 'charity' ? "contained" :"outlined"}
+            color="primary"  
+            style={{color: this.state.selected === 'charity' ? 'white' : '#f57c00' }}
+            onClick={() => this.selectOption('charity')}
+          >
             Donate to Charity
-          </div>
-          <div style={styles.optionButton} onClick={() => this.selectOption('restaurant')}>
+          </Button>
+          <Button                   
+            variant={this.state.selected === 'restaurant' ? "contained" :"outlined"}
+            color="primary"  
+            style={{color: this.state.selected === 'restaurant' ? 'white' : '#f57c00' }}
+            onClick={() => this.selectOption('restaurant')}
+          >
             Purchase Local Restaurant Giftcards
-          </div>
+          </Button>
+        
         </div>
-
-        {this.state.selected === 'charity' ? charityList : null}
-        {this.state.selected === 'restaurant' ? restaurantList : null}
+        <div style={{margin: '40px 0'}}>
+          {this.state.selected === 'charity' ? charityList : null}
+          {this.state.selected === 'restaurant' ? restaurantList : null}
+        </div>
       </div>
     );
   }
