@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import {median} from 'mathjs';
+
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 
 import BlacklistDialog from './BlacklistDialog';

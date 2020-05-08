@@ -1,12 +1,13 @@
 import React from 'react';
 import withStyles from '@material-ui/styles/withStyles';
 
-import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import BaseDialog from './BaseDialog';
-import blacklistIcon from '../../../assets/blacklist-icon.png';
 
 const styles = theme => ({
   container: {
@@ -17,12 +18,6 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  stepsContainer: {
-    marginLeft: 72,
-    textAlign: 'left',
-    marginTop: 20,
-    height: 65
-  },
   paper: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
@@ -30,9 +25,6 @@ const styles = theme => ({
     alignItems: "center",
     color: theme.palette.text.secondary
   },
-  bottomMargin: {
-    marginBottom: theme.spacing(2)
-  }
 });
 
 const BlacklistDialog = ({ classes, allowedItems, blacklistDialog, blacklistProduct, item, onClose}) => (
@@ -52,10 +44,9 @@ const BlacklistDialog = ({ classes, allowedItems, blacklistDialog, blacklistProd
               ${parseFloat(product.price_current) / 100}
             </Grid>
             <Grid item xs={1}>
-              <img
-                src={blacklistIcon}
-                style={{height: '40px', width: '40px', cursor: 'pointer'}}
-                onClick={() => blacklistProduct(product, item.category)}/>
+              <IconButton aria-label="delete" onClick={() => blacklistProduct(product, item.category)}>
+                <DeleteIcon color="primary"/>
+              </IconButton>
             </Grid>
           </Grid>
         </Paper>
