@@ -91,7 +91,7 @@ export class OrderStatus extends React.Component {
   orderCompletedEverythingPurchased = (totalSaved, bonusGold) => {
     const {orderCompleted} = this.props.actions;
 
-    orderCompleted({totalSaved, bonusGold});
+    orderCompleted(totalSaved, bonusGold);
     this.props.history.push("/order-complete")
   };
 

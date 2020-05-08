@@ -72,7 +72,7 @@ export class ShoppingComplete extends React.Component {
     };
   }
 
-  propTypes = {
+  static propTypes = {
     actions: PropTypes.object.isRequired,
     order: PropTypes.object.isRequired
   };
@@ -82,9 +82,7 @@ export class ShoppingComplete extends React.Component {
   }
 
   render() {
-    const {order} = this.props;
-    const {totalSaved, bonusGold} = order;
-
+    const {totalSaved, bonusGold} = this.props.order;
 
     const restaurantList = <Grid container spacing={1}>
       <Grid item xs={4}>
@@ -130,7 +128,7 @@ export class ShoppingComplete extends React.Component {
 
     return (
       <div className={styles.main}>
-        You saved ${totalSaved} by using Honey's Sweet Budgets! <br/><br/>Here's an extra {bonusGold} Honey Gold to get your next shopping list started!
+        You saved ${totalSaved.toFixed(2)} by using Honey's Sweet Budgets! <br/><br/>Here's an extra {bonusGold.toFixed(0)} Honey Gold to get your next shopping list started!
 
 
         What would you like to do with your savings?
