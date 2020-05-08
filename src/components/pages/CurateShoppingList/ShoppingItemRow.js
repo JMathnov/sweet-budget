@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
 import _ from 'lodash';
 import {median} from 'mathjs';
+
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 
 import BlacklistDialog from './BlacklistDialog';
@@ -15,6 +16,22 @@ export class ShoppingItemRow extends React.Component {
     changePrice: PropTypes.func.isRequired,
     blacklistProduct: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      blacklistDialog: false,
+    };
+  }
+
+  openDialog = event => {
+    this.setState({ blacklistDialog: true });
+  };
+
+  dialogClose = event => {
+    this.setState({ blacklistDialog: false });
+  };
+
 
   getAllowedItems(item) {
     const items = _.get(this.props.essentialItems, item.category, {});
@@ -46,12 +63,17 @@ export class ShoppingItemRow extends React.Component {
           <Button variant="text"
                   color="primary"
                   size="small"
-                  onClick={() => this.props.openDialog()}>
+                  onClick={() => this.openDialog()}>
             {this.props.item.name}
           </Button>
         </Grid>
 
-        <BlacklistDialog {...this.props} allowedItems={allowedItems}/>
+        {this.state.blacklistDialog ?
+          <BlacklistDialog {...this.props}
+            allowedItems={allowedItems}
+            blacklistDialog={this.state.blacklistDialog}
+            onClose={this.dialogClose}/>
+        : null}
 
         <Grid item xs={1}>
           {this.props.item.quantity}
