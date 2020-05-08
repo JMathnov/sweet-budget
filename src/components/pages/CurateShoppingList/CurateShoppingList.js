@@ -21,21 +21,18 @@ export class CurateShoppingList extends React.Component {
   };
 
   changeItemLimitPrice(item, limitPrice) {
-    this.setState({
-      limits: {
-        ...this.state.limits,
-        [item.category]: limitPrice
-      },
-    });
+    this.props.actions.submitList({[item.category]: limitPrice});
   }
 
-  submitOrder = (limitOrders) => {
-    this.props.actions.submitList(limitOrders);
+  submitOrder = () => {
     this.props.history.push("/shipping-and-payment");
   };
 
   render() {
-    const orderCanBeSubmitted = Object.keys(this.state.limits).length === this.props.shopping_list.items.length ? '' : 'disabled';
+    const shoppingItemsWithLimit = _.filter(this.props.shopping_list.items, item => !!item.limit_price);
+    const orderCanBeSubmitted = shoppingItemsWithLimit.length === this.props.shopping_list.items.length ? '' : 'disabled';
+
+    const orderTotal = shoppingItemsWithLimit.map(item => item.limit_price * item.quantity).reduce((a,b) => a + b, 0);
 
     const output = <Grid container spacing={1} className={'curate'}>
       <Grid item xs={1}/>
@@ -75,10 +72,13 @@ export class CurateShoppingList extends React.Component {
           item={item}
           essentialItems={this.props.essentialItems}
           changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
-          itemPrice={_.get(this.state.limits, item.category, null)} blacklistProduct={this.blacklistProduct}/>
+          blacklistProduct={this.blacklistProduct}/>
       )}
 
-      <Grid item xs={8}/>
+      <Grid item xs={3}>
+        Order Total:&nbsp;$&nbsp;{orderTotal}
+      </Grid>
+      <Grid item xs={5}/>
       <Grid item xs={4}>
 
         <Button buttonType="secondary-ghost" copy="Submit Order" onClick={() => this.submitOrder(this.state.limits)}
