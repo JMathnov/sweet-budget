@@ -8,9 +8,6 @@ import Slider from '@material-ui/core/Slider';
 
 import BlacklistDialog from './BlacklistDialog';
 
-import Popup from "reactjs-popup";
-import blacklistIcon from '../../../assets/blacklist-icon.png';
-
 export class ShoppingItemRow extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
@@ -41,6 +38,7 @@ export class ShoppingItemRow extends React.Component {
 
   render() {
     const allowedItems = this.getAllowedItems(this.props.item);
+    console.log(allowedItems);
     const priceProfile = this.getProductAveragePrice(this.props.item, allowedItems);
     return (
       <Grid container spacing={1} alignItems={'center'}>
@@ -54,32 +52,7 @@ export class ShoppingItemRow extends React.Component {
           </Button>
         </Grid>
 
-        <BlacklistDialog open={this.props.blacklistDialog}/>
-
-        {/* <Popup position={"center center"}>
-          <Grid container spacing={1}>
-            {allowedItems.map(product => {
-              return (<Grid container spacing={1} className={'popup'}>
-                <Grid item xs={2}>
-                  <img src={product.image_url_primary}
-                       style={{height: '60px', width: '60px', position: 'relative', margin: 'auto', left: '15%'}}/>
-                </Grid>
-                <Grid item xs={7}>
-                  {product.title}
-                </Grid>
-                <Grid item xs={2}>
-                  ${parseFloat(product.price_current) / 100}
-                </Grid>
-                <Grid item xs={1}>
-                  <img
-                    src={blacklistIcon}
-                    style={{height: '40px', width: '40px', cursor: 'pointer'}}
-                    onClick={() => this.props.blacklistProduct(product, this.props.item.category)}/>
-                </Grid>
-              </Grid>)
-            })}
-          </Grid>
-        </Popup> */}
+        <BlacklistDialog {...this.props} allowedItems={allowedItems}/>
 
         <Grid item xs={1}>
           {this.props.item.quantity}

@@ -48,6 +48,10 @@ export class CurateShoppingList extends React.Component {
     this.setState({ blacklistDialog: true });
   };
 
+  dialogClose = event => {
+    this.setState({ blacklistDialog: false });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -104,6 +108,7 @@ export class CurateShoppingList extends React.Component {
               essentialItems={this.props.essentialItems}
               changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
               openDialog={this.openDialog}
+              onClose={this.dialogClose}
               blacklistDialog={this.state.blacklistDialog}
               blacklistProduct={this.blacklistProduct}/>
             )}
