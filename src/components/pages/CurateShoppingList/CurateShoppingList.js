@@ -28,7 +28,6 @@ export class CurateShoppingList extends React.Component {
     super(props);
     this.state = {
       limits: [],
-      blacklistDialog: false,
     };
   }
 
@@ -42,14 +41,6 @@ export class CurateShoppingList extends React.Component {
 
   submitOrder = () => {
     this.props.history.push("/shipping-and-payment");
-  };
-
-  openDialog = event => {
-    this.setState({ blacklistDialog: true });
-  };
-
-  dialogClose = event => {
-    this.setState({ blacklistDialog: false });
   };
 
   render() {
@@ -107,9 +98,6 @@ export class CurateShoppingList extends React.Component {
               item={item}
               essentialItems={this.props.essentialItems}
               changePrice={(newPrice) => this.changeItemLimitPrice(item, newPrice)}
-              openDialog={this.openDialog}
-              onClose={this.dialogClose}
-              blacklistDialog={this.state.blacklistDialog}
               blacklistProduct={this.blacklistProduct}/>
             )}
             </Grid>
