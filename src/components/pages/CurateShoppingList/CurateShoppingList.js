@@ -57,8 +57,8 @@ export class CurateShoppingList extends React.Component {
         <Grid container spacing={1} className={'curate'}>
 
           <Grid item xs={1}/>
-          <Grid item xs={1}>Qty</Grid>
-          <Grid item xs={1}>Your Limit</Grid>
+          <Grid item xs={1} style={{fontWeight: 600}}>Qty</Grid>
+          <Grid item xs={1} style={{fontWeight: 600}}>Your Limit</Grid>
 
           <Grid item xs={3} className={'color-cart'} style={{'text-align': 'left'}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="green"
@@ -104,7 +104,7 @@ export class CurateShoppingList extends React.Component {
           </Grid>
 
           <Grid item xs={3}>
-          Order Total:&nbsp;$&nbsp;{orderTotal}
+          Order Total:&nbsp;$&nbsp;{parseFloat(`${orderTotal}`).toFixed(2)}
           </Grid>
 
           <Grid item xs={9}>
