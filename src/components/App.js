@@ -53,14 +53,6 @@ class App extends React.Component {
           <div className={'header'}>
             <HoneyHeader />
             <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
-            {' | '}
-            <NavLink to="/new-shopping-list" activeStyle={activeStyle}>New List</NavLink>
-            {' | '}
-            <NavLink to="/curate-shopping-list" activeStyle={activeStyle}>Curate List</NavLink>
-            {' | '}
-            <NavLink to="/shopping-list-status" activeStyle={activeStyle}>List status</NavLink>
-            {' | '}
-            <NavLink to="/order-complete" activeStyle={activeStyle}>Order Complete</NavLink>
           </div>
 
           <Switch>

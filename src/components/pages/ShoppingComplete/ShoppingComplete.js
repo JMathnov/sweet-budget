@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../../../actions/sweetBudgetActions';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import * as coinyParty from '../../../assets/coiny-confetti.png';
 
 import withStyles from "@material-ui/styles/withStyles";
 import * as redCross from '../../../assets/red-cross.png';
@@ -20,6 +21,7 @@ import * as kalzbrgr from '../../../assets/kalzbrgr.png';
 import * as ounceOfPrevention from '../../../assets/ounce-of-prevention.jpg';
 import * as permian from '../../../assets/permian.jpg';
 import * as ginos from '../../../assets/ginos.jpg';
+import * as coinyWave from "../../../assets/coiny-wave.png";
 
 const styles = {
   main: {
@@ -97,6 +99,13 @@ const styles = {
     height: 75,
     width: 150,
     objectFit: 'contain'
+  },
+  coinyImg: {
+    width: '150px',
+    position: 'absolute',
+    top: '150px',
+    right: '500px',
+    objectFit: 'contain',
   }
 };
 
@@ -140,9 +149,9 @@ export class ShoppingComplete extends React.Component {
     const {totalSaved, bonusGold} = this.props.order;
 
     const restaurantList = <Grid container spacing={1}>
-      {restaurantImage.map(img => 
-        <Grid 
-          item xs={4}   
+      {restaurantImage.map(img =>
+        <Grid
+          item xs={4}
           style={{textAlign: 'center', marginBottom: 16}}
         >
           <img src={img} style={styles.image}/>
@@ -151,9 +160,9 @@ export class ShoppingComplete extends React.Component {
     </Grid>;
 
     const charityList = <Grid container spacing={1}>
-      {charityImages.map(img => 
-        <Grid 
-          item xs={4}   
+      {charityImages.map(img =>
+        <Grid
+          item xs={4}
           style={{textAlign: 'center', marginBottom: 16}}
         >
           <img src={img} style={styles.image}/>
@@ -164,16 +173,17 @@ export class ShoppingComplete extends React.Component {
     return (
       <div style={styles.main}>
         <h1 style={styles.h1}>Order Complete</h1>
+        <img src={coinyParty} style={styles.coinyImg}/>
 
         <h2 style={styles.h2}>
           You saved <span style={styles.bold}>
-            ${totalSaved.toFixed(2)} 
-          </span> by using Honey's Sweet Budgets! 
+            ${totalSaved.toFixed(2)}
+          </span> by using Honey's Sweet Budgets!
         </h2>
         <h2 style={styles.h2}>
 
           Here's an extra <span style={styles.bold}>
-            {bonusGold.toFixed(0)} 
+            {bonusGold.toFixed(0)}
           </span> Honey Gold to get your next shopping list started!
         </h2>
 
@@ -181,31 +191,31 @@ export class ShoppingComplete extends React.Component {
           What would you like to do with your savings?
         </h3>
         <div style={styles.itemRow}>
-          <Button                   
+          <Button
             variant={this.state.selected === 'save' ? "contained" :"outlined"}
-            color="primary"  
+            color="primary"
             style={{color: this.state.selected === 'save' ? 'white' : '#f57c00' }}
             onClick={() => this.selectOption('save')}
           >
             Apply it towards my next Shopping List
           </Button>
-          <Button                   
+          <Button
             variant={this.state.selected === 'charity' ? "contained" :"outlined"}
-            color="primary"  
+            color="primary"
             style={{color: this.state.selected === 'charity' ? 'white' : '#f57c00' }}
             onClick={() => this.selectOption('charity')}
           >
             Donate to Charity
           </Button>
-          <Button                   
+          <Button
             variant={this.state.selected === 'restaurant' ? "contained" :"outlined"}
-            color="primary"  
+            color="primary"
             style={{color: this.state.selected === 'restaurant' ? 'white' : '#f57c00' }}
             onClick={() => this.selectOption('restaurant')}
           >
             Purchase Local Restaurant Giftcards
           </Button>
-        
+
         </div>
         <div style={{margin: '40px 0'}}>
           {this.state.selected === 'charity' ? charityList : null}

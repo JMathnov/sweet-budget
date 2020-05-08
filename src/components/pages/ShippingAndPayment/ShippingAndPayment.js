@@ -12,7 +12,7 @@ export class ShippingAndPayment extends React.Component {
 
   render() {
     return (
-      <svg width="1920" height="1122" viewBox="0 0 1920 1122" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => this.sendToOrderStatus()}>
+      <svg width="1920" height="1122" viewBox="0 0 1920 1122" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => this.sendToOrderStatus()} style={{left: '-10px', position: 'absolute'}} >
         <path d="M0 0H1920V1116C1920 1119.31 1917.31 1122 1914 1122H6.00002C2.68631 1122 0 1119.31 0 1116V0Z" fill="white"/>
         <g opacity="0.6">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M1522.21 75L1528.2 67H1516.21L1522.21 75Z" fill="#808080"/>
